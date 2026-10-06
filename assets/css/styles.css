@@ -263,6 +263,8 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .type:hover::before { opacity: 1; }
 .type__n { font-family: 'Archivo',sans-serif; font-size: 15px; font-weight: 700;
   color: var(--accent); font-variant-numeric: tabular-nums; }
+.type__img { display: block; width: calc(100% + 44px); max-width: none; height: 150px; margin: -28px -22px 20px;
+  object-fit: cover; background: var(--navy-800); }
 .type h3 { margin-top: 12px; font-size: 17px; font-weight: 700; color: #fff; }
 .type p { margin-top: 8px; font-size: 14.5px; color: var(--steel-300); }
 
@@ -814,6 +816,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 @media (max-width: 1040px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
   .types { grid-template-columns: repeat(2, 1fr); }
+  .type__img { height: 120px; }
   .quote__in, .cover { grid-template-columns: minmax(0, 1fr); gap: 34px; }
   .qnext, .qcall { display: none; }   /* stacked: no empty column to fill */
   .cgrid { grid-template-columns: repeat(2, 1fr); }
