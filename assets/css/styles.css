@@ -623,8 +623,8 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 }
 .lift:hover .lift__name, .lift:focus-within .lift__name { opacity: 1; transform: translateY(-50%); }
 .lift__stop.is-current .lift__name { background: var(--accent); color: var(--navy-900); }
-.lift__stop.is-current .lift__fl, .lift__toast .lift__fl {
-  color: var(--navy-900); background: var(--accent);
+.lift__stop.is-current .lift__fl, .lift__toast .lift__fl {      /* blue number circle on the orange pill */
+  color: #fff; background: var(--navy-800);
 }
 
 /* the cab: crosshead on top, warm lit car behind two brushed-steel doors */
