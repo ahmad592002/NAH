@@ -177,6 +177,11 @@ html[dir="ltr"] .navlinks { gap: 20px; }
    orange CTA carry. The chevron field is the logo's own mark. */
 .hero {
   position: relative; overflow: hidden;
+  /* nav + hero fill exactly the first screen: the small viewport height (address
+     bar showing), so nothing hides under the browser chrome; vh as fallback */
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  display: flex; align-items: center;
   /* explicit colour first: the shorthand below would otherwise leave
      background-color transparent, so a failed gradient shows white text
      on a white page */
