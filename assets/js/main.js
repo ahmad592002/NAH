@@ -105,6 +105,9 @@
         markerZoomAnimation: !calm
       });
     } catch (e) { return; }
+    // plain credit: the default prefix carries a small yellow flag icon, the
+    // only non-brand colour on the page
+    map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
 
     // Standard OpenStreetMap tiles — the only major basemap that is genuinely
     // free with no API key and no account. CARTO's dark theme now stamps
