@@ -155,8 +155,9 @@
   // Scrolling down rides the cab down; the display shows the floor, the arrow
   // lights while moving, and the doors open once the visitor stops scrolling.
   (function () {
-    var rail = document.getElementById('lift'), chip = document.getElementById('liftchip');
-    if (!rail && !chip) return;
+    var rail = document.getElementById('lift');                      // desktop side rail
+    var mlift = document.getElementById('mlift'), panel = document.getElementById('mpanel');   // mobile scrollbar + floor panel
+    if (!rail && !mlift) return;
 
     var FLOORS = [
       { id: 'top',      ar: 'الرئيسية',      en: 'Home' },
@@ -171,9 +172,11 @@
     ].filter(function (f) { return document.getElementById(f.id); });
 
     var N = FLOORS.length;               // geometry (floor height, cab size) lives in styles.css
-    var els = [rail, chip].filter(Boolean);
+    var els = [rail, mlift].filter(Boolean);
+    var pbtns = [], lastFocus = null, mTimer;
     var stops = [], toast = rail && rail.querySelector('.lift__toast');
-    var tops = [], last = null, lastY = null, current = -1, idle, toastTimer, chipTimer, queued = false;
+    var tops = [], last = null, lastY = null, current = -1, idle, toastTimer, queued = false;
+    var ticks = [], dragging = false, dragged = false, dragStartY = 0, swallowClick = false;
 
     function isAr() { return html.getAttribute('dir') === 'rtl'; }
     function nameOf(i) { return isAr() ? FLOORS[i].ar : FLOORS[i].en; }
@@ -193,7 +196,82 @@
       });
     }
 
+    if (mlift) {
+      mlift.style.setProperty('--n', N);
+      var tickBox = mlift.querySelector('.mlift__ticks');
+      FLOORS.forEach(function (f, i) {
+        var t = document.createElement('span'); tickBox.appendChild(t); ticks.push(t);
+      });
+    }
+    if (panel) {
+      var grid = panel.querySelector('.mpanel__grid');
+      FLOORS.forEach(function (f, i) {
+        var a = document.createElement('a');
+        a.className = 'mpanel__fbtn'; a.href = '#' + f.id;
+        a.innerHTML = '<b></b><span></span>';
+        a.addEventListener('click', function () { closePanel(false); });
+        grid.appendChild(a); pbtns.push(a);
+      });
+      panel.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) closePanel(true); });
+    }
+    function onKey(e) { if (e.key === 'Escape') closePanel(true); }
+    function openPanel() {
+      if (!panel) return;
+      lastFocus = document.activeElement;
+      panel.hidden = false;
+      document.addEventListener('keydown', onKey);
+      (pbtns[current] || pbtns[0]).focus();
+    }
+    function closePanel(refocus) {
+      if (!panel || panel.hidden) return;
+      panel.hidden = true;
+      document.removeEventListener('keydown', onKey);
+      if (refocus && lastFocus) lastFocus.focus();
+    }
+    if (mlift) {
+      mlift.querySelector('.mlift__btn').addEventListener('click', function () {
+        if (swallowClick) { swallowClick = false; return; }
+        openPanel();
+      });
+
+      // Dragging the cab scrolls the page, like a scrollbar thumb.
+      var shaftEl = mlift.querySelector('.mlift__shaft');
+      mlift.addEventListener('pointerdown', function (e) {
+        if (e.button > 0) return;
+        dragging = true; dragged = false; dragStartY = e.clientY; swallowClick = false;
+      });
+      mlift.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        if (!dragged && Math.abs(e.clientY - dragStartY) < 6) return;   // still a tap
+        if (!dragged) {
+          dragged = true; mlift.classList.add('is-dragging');
+          // Capture only once it is really a drag: capturing on press re-targets
+          // the release to the container, so a plain tap never reached the button.
+          try { mlift.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
+        }
+        var r = shaftEl.getBoundingClientRect(), CAB = 22;
+        var p = Math.max(0, Math.min(1, (e.clientY - r.top - CAB / 2) / (r.height - CAB)));
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: p * max, behavior: 'instant' });
+        e.preventDefault();
+      });
+      var endDrag = function () {
+        if (!dragging) return;
+        dragging = false;
+        if (dragged) { swallowClick = true; mlift.classList.remove('is-dragging'); }
+      };
+      mlift.addEventListener('pointerup', endDrag);
+      mlift.addEventListener('pointercancel', endDrag);
+    }
+
     function setNames() {
+      pbtns.forEach(function (a, i) {
+        a.querySelector('b').textContent = label(i);
+        a.querySelector('span').textContent = nameOf(i);
+      });
+      if (mlift) mlift.querySelector('.mlift__btn').setAttribute('aria-label', isAr() ? 'الطوابق — اختر قسماً' : 'Floors — choose a section');
+      if (panel) panel.querySelector('.mpanel__close').setAttribute('aria-label', isAr() ? 'إغلاق' : 'Close');
+
       stops.forEach(function (a, i) {
         a.querySelector('.lift__fl').textContent = label(i);
         a.querySelector('.lift__nm').textContent = nameOf(i);
@@ -220,13 +298,18 @@
           toastTimer = setTimeout(function () { rail.classList.remove('is-announce'); }, 1500);
         }
       }
-      if (chip) {
-        chip.querySelector('.liftchip__num').textContent = label(f);
-        chip.querySelector('.liftchip__name').textContent = nameOf(f);
+      pbtns.forEach(function (a, i) {
+        a.classList.toggle('is-current', i === f);
+        if (i === f) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+      if (panel) panel.querySelector('.mpanel__num').textContent = label(f);
+      if (mlift) {
+        mlift.querySelector('.mlift__fl').textContent = label(f);
+        mlift.querySelector('.mlift__nm').textContent = nameOf(f);
         if (announce) {
-          chip.classList.remove('is-announce'); void chip.offsetWidth; chip.classList.add('is-announce');
-          clearTimeout(chipTimer);
-          chipTimer = setTimeout(function () { chip.classList.remove('is-announce'); }, 600);
+          mlift.classList.add('is-announce');
+          clearTimeout(mTimer);
+          mTimer = setTimeout(function () { mlift.classList.remove('is-announce'); }, 1500);
         }
       }
     }
@@ -234,6 +317,12 @@
     function measure() {
       tops = FLOORS.map(function (f) {
         return document.getElementById(f.id).getBoundingClientRect().top + window.scrollY;
+      });
+      // each floor dot sits at the scroll position where that floor becomes current
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      ticks.forEach(function (t, i) {
+        var at = i === N - 1 ? 1 : (tops[i] - window.innerHeight * 0.4) / max;
+        t.style.setProperty('--t', max > 0 ? Math.max(0, Math.min(1, at)).toFixed(4) : '0');
       });
     }
 
@@ -250,7 +339,9 @@
     function arrive() {
       els.forEach(function (el) {
         el.classList.remove('is-moving');
-        if (Math.abs(last - Math.round(last)) < 0.15) el.classList.add('is-open');
+        // Desktop cab moves floor to floor, so it opens only at a floor. The mobile
+        // cab is the scroll thumb and usually rests between floors: open on any stop.
+        if (el === mlift || Math.abs(last - Math.round(last)) < 0.15) el.classList.add('is-open');
       });
     }
 
@@ -272,6 +363,10 @@
       }
       last = pos; lastY = y;
       if (rail) rail.style.setProperty('--pos', pos.toFixed(3));
+      if (mlift) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        mlift.style.setProperty('--sp', max > 0 ? Math.max(0, Math.min(1, y / max)).toFixed(4) : '0');
+      }
       var floor = Math.round(pos);
       if (floor !== current) setFloor(floor, current !== -1);
     }

@@ -130,12 +130,6 @@
       </span>
     </a>
 
-    <!-- compact floor display for phones/tablets (the side rail needs ≥1280px) -->
-    <div class="liftchip" id="liftchip" aria-hidden="true">
-      <svg class="lift__arrow" viewBox="0 0 10 8"><path d="M0 0H10L5 8Z" fill="currentColor"/></svg>
-      <b class="liftchip__num">8</b>
-      <span class="liftchip__name">الرئيسية</span>
-    </div>
 
     <nav class="navlinks" id="navlinks">
       <a href="#services" data-en="Services"  data-ar="الخدمات">الخدمات</a>
@@ -750,6 +744,32 @@
     <span class="lift__toast" aria-hidden="true"></span>
   </div>
 </nav>
+
+<!-- ══════════════════ MOBILE ELEVATOR = SCROLLBAR ══════════════════
+     Phones/tablets (<1200px): replaces the browser scrollbar. The cab is the
+     scroll thumb — drag it to scroll; tap the shaft to open the floor panel. -->
+<div class="mlift" id="mlift">
+  <button class="mlift__btn" type="button" aria-haspopup="dialog" aria-controls="mpanel" aria-label="الطوابق">
+    <span class="mlift__shaft" aria-hidden="true">
+      <span class="mlift__ticks"></span>
+      <span class="mlift__cab"><i></i><i></i></span>
+    </span>
+  </button>
+  <span class="mlift__toast" aria-hidden="true"><b class="mlift__fl">8</b><span class="mlift__nm"></span></span>
+</div>
+
+<!-- floor panel: a bottom sheet with one round button per floor -->
+<div class="mpanel" id="mpanel" hidden>
+  <div class="mpanel__backdrop" data-close></div>
+  <div class="mpanel__sheet" role="dialog" aria-modal="true" aria-labelledby="mpanel-title">
+    <div class="mpanel__head">
+      <span class="mpanel__display" aria-hidden="true"><svg class="lift__arrow" viewBox="0 0 10 8"><path d="M0 0H10L5 8Z" fill="currentColor"/></svg><b class="mpanel__num">8</b></span>
+      <b class="mpanel__title" id="mpanel-title" data-en="Choose a floor" data-ar="اختر الطابق">اختر الطابق</b>
+      <button class="mpanel__close" type="button" data-close aria-label="إغلاق">&times;</button>
+    </div>
+    <div class="mpanel__grid"></div>
+  </div>
+</div>
 
 <a class="fab" href="https://wa.me/96176527121?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D9%85%D8%B5%D8%B9%D8%AF." target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5a.6.6 0 0 0 0-.6L8.9 6.6c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 6.9 12a13.9 13.9 0 0 0 5.3 4.7c2.6 1 2.6.7 3.1.6a3.2 3.2 0 0 0 2-1.4 2.6 2.6 0 0 0 .2-1.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>

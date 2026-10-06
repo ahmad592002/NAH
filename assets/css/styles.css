@@ -449,7 +449,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
    Side rail on desktop (≥1280px wide, ≥640px tall), compact display in the
    nav bar below 1200px. 1200–1279px shows neither: the full nav fills the bar
    there and the content edge is too close for the rail. */
-.lift, .liftchip { display: none; }
+.lift { display: none; }
 .lift__arrow { width: 10px; height: 8px; flex: none; color: var(--steel-400);
   transition: color .2s, transform .25s var(--ease); }
 .is-moving .lift__arrow { color: var(--accent); }
@@ -489,7 +489,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
 }
 .lift__display .lift__arrow { width: 12px; height: 9px; }
 /* amber LED digits — shared by the side rail and the nav-bar display */
-.lift__num, .liftchip__num {
+.lift__num {
   font-family: "Archivo", sans-serif; font-weight: 700; line-height: 1;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
@@ -640,30 +640,121 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 .lift.is-announce .lift__toast { opacity: 1; transform: translateY(-50%); }
 .lift:hover .lift__toast, .lift:focus-within .lift__toast { opacity: 0; }
 
-/* compact display in the nav bar */
-@media (max-width: 1199px) {
-  .liftchip {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-inline: auto; height: 40px; padding: 0 12px; border-radius: 8px;
-    background: var(--navy-900);
-  }
-  .navcta { margin-inline-start: 0; }
-}
-.liftchip__num { font-size: 18px; min-width: 1.1em; text-align: center; }
-.liftchip__name { font-size: 13px; font-weight: 600; color: var(--steel-300); white-space: nowrap; }
-.liftchip.is-announce .liftchip__num { animation: ding .5s var(--ease); }
-@keyframes ding { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
-@media (max-width: 560px) { .liftchip__name { display: none; } }
-/* small phones: tighter nav spacing so logo + floor display + buttons fit in one row */
+/* small phones: tighter nav spacing */
 @media (max-width: 480px) {
   .nav__in { gap: 10px; }
   .navcta { gap: 8px; }
-  .liftchip { padding: 0 9px; gap: 6px; }
 }
-@media (max-width: 359px) {
-  .liftchip { display: none; }
-  .navcta { margin-inline-start: auto; }
+
+/* ═══════════ mobile elevator = the scrollbar ═══════════
+   Phones and tablets (<1200px): the browser's own scrollbar is hidden and a
+   thin elevator shaft takes its place on the same edge. The cab is the scroll
+   thumb — its position IS the scroll position (--sp, 0…1); each floor dot sits
+   where that section begins (--t); dragging the cab scrolls the page; a tap
+   opens the floor panel. Flat navy/orange, like the desktop rail. */
+.mlift, .mpanel { display: none; }
+@media (max-width: 1199px) {
+  html { scrollbar-width: none; }                        /* Firefox, Chrome 121+ */
+  html::-webkit-scrollbar { display: none; width: 0; height: 0; }   /* older Chrome, Safari */
+
+  .mlift {
+    display: block; position: fixed; z-index: 85;
+    inset-inline-end: 0; width: 18px;                    /* fits the 18px phone gutter */
+    top: calc(var(--nav-h) + 16px); bottom: 92px;        /* clear of the nav bar and the WhatsApp button */
+    touch-action: none;                                  /* a drag here moves the cab, not the page */
+  }
 }
+.mlift__btn {
+  display: block; width: 100%; height: 100%; padding: 0; margin: 0;
+  background: none; border: 0; cursor: grab; color: inherit; font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.mlift.is-dragging .mlift__btn { cursor: grabbing; }
+.mlift__btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+
+.mlift__shaft { position: absolute; inset: 0; }
+.mlift__shaft::before {                                   /* the track */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; margin-left: -2px;
+  border-radius: 2px; background: rgba(138,164,192,.4); transition: background .2s;
+}
+.mlift.is-dragging .mlift__shaft::before { background: rgba(138,164,192,.75); }
+.mlift__ticks span {                                      /* one dot per floor, where its section starts */
+  position: absolute; left: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
+  background: rgba(138,164,192,.75);
+  top: calc(var(--t, 0) * (100% - 22px) + 11px);
+}
+.mlift__cab {                                             /* the cab = scroll thumb */
+  position: absolute; left: 50%; width: 10px; height: 22px; margin-left: -5px;
+  overflow: hidden; border-radius: 3px; background: var(--accent);
+  top: calc(var(--sp, 0) * (100% - 22px));
+  transition: width .15s var(--ease), margin .15s var(--ease);
+}
+.mlift.is-dragging .mlift__cab { width: 14px; margin-left: -7px; }
+.mlift__cab i {
+  position: absolute; top: 0; bottom: 0; width: calc(50% - .5px); background: #C9D5E3;
+  transition: transform .45s var(--ease);
+}
+.mlift__cab i:first-child { left: 0; }
+.mlift__cab i:last-child  { right: 0; }
+.mlift.is-open .mlift__cab i:first-child { transform: translateX(-100%); }
+.mlift.is-open .mlift__cab i:last-child  { transform: translateX(100%); }
+
+.mlift__toast {                                           /* floor name beside the cab */
+  position: absolute; inset-inline-end: calc(100% + 6px);
+  top: calc(var(--sp, 0) * (100% - 22px) + 11px); transform: translateY(-50%);
+  display: flex; align-items: center; gap: 8px; white-space: nowrap; pointer-events: none;
+  padding-block: 4px; padding-inline: 4px 13px; border-radius: 99px;
+  background: var(--navy-900); color: #fff; font-size: 13px; font-weight: 600; line-height: 1;
+  opacity: 0; transition: opacity .22s var(--ease);
+}
+.mlift.is-announce .mlift__toast, .mlift.is-dragging .mlift__toast { opacity: 1; }
+.mlift__fl {
+  display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 11px; padding: 0 4px;
+  background: var(--accent); color: var(--navy-900);
+  font-family: "Archivo", sans-serif; font-size: 12.5px; font-weight: 700;
+}
+
+/* floor panel (bottom sheet) */
+.mpanel:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 120; }
+.mpanel__backdrop { position: absolute; inset: 0; background: rgba(6,24,43,.62); }
+.mpanel__sheet {
+  position: absolute; inset-inline: 0; bottom: 0; max-width: 520px; margin-inline: auto;
+  padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
+  border-radius: 20px 20px 0 0; background: var(--navy-800);
+  animation: sheetUp .28s var(--ease);
+}
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: none; } }
+.mpanel__head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.mpanel__display {
+  display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 12px;
+  border-radius: 8px; background: var(--navy-900);
+}
+.mpanel__num {
+  font-family: "Archivo", sans-serif; font-weight: 700; font-size: 18px; line-height: 1;
+  color: var(--accent); font-variant-numeric: tabular-nums;
+}
+.mpanel__title { color: #fff; font-size: 17px; font-weight: 700; }
+.mpanel__close {
+  margin-inline-start: auto; width: 42px; height: 42px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--navy-700); color: #fff; font-size: 24px; line-height: 1;
+}
+.mpanel__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 10px; }
+.mpanel__fbtn {
+  display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+  color: var(--steel-300); font-size: 12.5px; font-weight: 600; line-height: 1.3;
+  -webkit-tap-highlight-color: transparent;
+}
+.mpanel__fbtn b {
+  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--navy-700); color: #fff;
+  font-family: "Archivo", sans-serif; font-size: 21px; font-weight: 700;
+  transition: background .2s, color .2s;
+}
+.mpanel__fbtn.is-current { color: #fff; }
+.mpanel__fbtn.is-current b { background: var(--accent); color: var(--navy-900); }
+.mpanel__fbtn:active b { background: var(--brass); color: var(--navy-900); }
+.mpanel__fbtn:focus-visible { outline: none; }
+.mpanel__fbtn:focus-visible b { outline: 3px solid var(--accent); outline-offset: 3px; }
 
 /* ═══════════ floating whatsapp ═══════════ */
 .fab { position: fixed; inset-inline-end: 24px; bottom: 24px; z-index: 95;
@@ -729,7 +820,8 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 /* ── print: someone will print this to take to a contractor ── */
 @media print {
   .nav, .fab, .skip, .hero__glyph, .map, .langtog, .work__cta .btn { display: none !important; }
-  .lift, .liftchip { display: none !important; }
+  .lift { display: none !important; }
+  .mlift, .mpanel { display: none !important; }
   body { font-size: 11pt; line-height: 1.5; color: #000; background: #fff; }
   section { padding: 14pt 0; break-inside: avoid; }
   .on-navy, .on-deep, .hero { background: #fff !important; color: #000 !important; }
