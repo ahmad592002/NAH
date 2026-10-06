@@ -657,15 +657,21 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   /* The page scrolls inside <body>, not the window. Mobile browsers (iOS Safari
      above all) ignore every attempt to hide the window's own scrollbar, but an
      element's scrollbar can always be hidden — so the elevator is the only one. */
-  html { height: 100%; overflow: hidden; scrollbar-width: none; }
-  html::-webkit-scrollbar { display: none; }
+  /* No scrollbar anywhere on phones/tablets — page, menu, panel. */
+  * { scrollbar-width: none; }
+  *::-webkit-scrollbar { display: none; width: 0; height: 0; }
+  html { height: 100%; overflow: hidden; }
+  /* Samsung Internet (and other Android browsers) still draw an overlay
+     scrollbar on a scroller that fills the screen. So <body> reaches 40px past
+     both screen edges, with matching padding: the content still fits the
+     screen exactly, but any scrollbar the browser draws lands off-screen. */
   body {
-    height: 100%; overflow-x: hidden; overflow-y: auto;
+    position: fixed; top: 0; bottom: 0; left: -40px; right: -40px; padding: 0 40px;
+    overflow-x: hidden; overflow-y: auto;
     -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain;
     scroll-behavior: smooth; scroll-padding-top: var(--nav-h);
     scrollbar-width: none;                               /* Firefox, Chrome 121+ */
   }
-  body::-webkit-scrollbar { display: none; width: 0; height: 0; }   /* Safari, older Chrome */
 
   .mlift {
     display: block; position: fixed; z-index: 85;
@@ -673,6 +679,10 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
     top: calc(var(--nav-h) + 14px); bottom: 92px;        /* clear of the nav bar and the WhatsApp button */
     touch-action: none;                                  /* a drag here moves the cab, not the page */
   }
+}
+/* keep text clear of the elevator on its edge (nav sits above the shaft) */
+@media (max-width: 1199px) {
+  html main .wrap, html footer .wrap { padding-inline-end: 34px; }
 }
 .mlift { --ch: 36px; }                                   /* cab height */
 .mlift__btn {
@@ -697,7 +707,9 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   position: absolute; left: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 1px;
   background: var(--steel-300);
   top: calc(var(--t, 0) * (100% - var(--ch)) + var(--ch) / 2);
+  opacity: 0; transition: opacity .2s var(--ease);       /* only while dragging: a quiet shaft at rest */
 }
+.mlift.is-dragging .mlift__ticks span { opacity: 1; }
 .mlift__cab {                                             /* the cab = scroll thumb */
   position: absolute; left: 50%; width: 16px; height: var(--ch); margin-left: -8px;
   overflow: hidden; border-radius: 4px; background: var(--accent);
