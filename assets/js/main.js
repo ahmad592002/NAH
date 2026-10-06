@@ -156,7 +156,7 @@
   // lights while moving, and the doors open once the visitor stops scrolling.
   (function () {
     var rail = document.getElementById('lift');                      // desktop side rail
-    var mlift = document.getElementById('mlift'), panel = document.getElementById('mpanel');   // mobile scrollbar + floor panel
+    var mlift = document.getElementById('mlift');                    // mobile scrollbar
     if (!rail && !mlift) return;
 
     // Below 1200px the page scrolls inside <body> (see styles.css), otherwise the window.
@@ -178,10 +178,10 @@
 
     var N = FLOORS.length;               // geometry (floor height, cab size) lives in styles.css
     var els = [rail, mlift].filter(Boolean);
-    var pbtns = [], lastFocus = null, mTimer;
+    var mTimer;
     var stops = [], toast = rail && rail.querySelector('.lift__toast');
     var tops = [], last = null, lastY = null, current = -1, idle, toastTimer, queued = false;
-    var ticks = [], dragging = false, dragged = false, dragStartY = 0, swallowClick = false;
+    var ticks = [], dragging = false, dragged = false, dragStartY = 0;
 
     function isAr() { return html.getAttribute('dir') === 'rtl'; }
     function nameOf(i) { return isAr() ? FLOORS[i].ar : FLOORS[i].en; }
@@ -208,42 +208,17 @@
         var t = document.createElement('span'); tickBox.appendChild(t); ticks.push(t);
       });
     }
-    if (panel) {
-      var grid = panel.querySelector('.mpanel__grid');
-      FLOORS.forEach(function (f, i) {
-        var a = document.createElement('a');
-        a.className = 'mpanel__fbtn'; a.href = '#' + f.id;
-        a.innerHTML = '<b></b><span></span>';
-        a.addEventListener('click', function () { closePanel(false); });
-        grid.appendChild(a); pbtns.push(a);
-      });
-      panel.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) closePanel(true); });
-    }
-    function onKey(e) { if (e.key === 'Escape') closePanel(true); }
-    function openPanel() {
-      if (!panel) return;
-      lastFocus = document.activeElement;
-      panel.hidden = false;
-      document.addEventListener('keydown', onKey);
-      (pbtns[current] || pbtns[0]).focus();
-    }
-    function closePanel(refocus) {
-      if (!panel || panel.hidden) return;
-      panel.hidden = true;
-      document.removeEventListener('keydown', onKey);
-      if (refocus && lastFocus) lastFocus.focus();
-    }
     if (mlift) {
-      mlift.querySelector('.mlift__btn').addEventListener('click', function () {
-        if (swallowClick) { swallowClick = false; return; }
-        openPanel();
-      });
-
-      // Dragging the cab scrolls the page, like a scrollbar thumb.
+      // Dragging the cab scrolls the page, like a scrollbar thumb; a tap on the
+      // shaft rides there.
       var shaftEl = mlift.querySelector('.mlift__shaft');
+      var toPoint = function (clientY) {
+        var r = shaftEl.getBoundingClientRect(), CAB = mlift.querySelector('.mlift__cab').offsetHeight;
+        return Math.max(0, Math.min(1, (clientY - r.top - CAB / 2) / (r.height - CAB))) * sMax();
+      };
       mlift.addEventListener('pointerdown', function (e) {
         if (e.button > 0) return;
-        dragging = true; dragged = false; dragStartY = e.clientY; swallowClick = false;
+        dragging = true; dragged = false; dragStartY = e.clientY;
       });
       mlift.addEventListener('pointermove', function (e) {
         if (!dragging) return;
@@ -254,27 +229,19 @@
           // the release to the container, so a plain tap never reached the button.
           try { mlift.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
         }
-        var r = shaftEl.getBoundingClientRect(), CAB = mlift.querySelector('.mlift__cab').offsetHeight;
-        var p = Math.max(0, Math.min(1, (e.clientY - r.top - CAB / 2) / (r.height - CAB)));
-        sc().scrollTo({ top: p * sMax(), behavior: 'instant' });
+        sc().scrollTo({ top: toPoint(e.clientY), behavior: 'instant' });
         e.preventDefault();
       });
-      var endDrag = function () {
+      mlift.addEventListener('pointerup', function (e) {
         if (!dragging) return;
         dragging = false;
-        if (dragged) { swallowClick = true; mlift.classList.remove('is-dragging'); }
-      };
-      mlift.addEventListener('pointerup', endDrag);
-      mlift.addEventListener('pointercancel', endDrag);
+        if (dragged) mlift.classList.remove('is-dragging');
+        else sc().scrollTo({ top: toPoint(e.clientY), behavior: 'smooth' });
+      });
+      mlift.addEventListener('pointercancel', function () { dragging = false; mlift.classList.remove('is-dragging'); });
     }
 
     function setNames() {
-      pbtns.forEach(function (a, i) {
-        a.querySelector('b').textContent = label(i);
-        a.querySelector('span').textContent = nameOf(i);
-      });
-      if (mlift) mlift.querySelector('.mlift__btn').setAttribute('aria-label', isAr() ? 'الطوابق — اختر قسماً' : 'Floors — choose a section');
-      if (panel) panel.querySelector('.mpanel__close').setAttribute('aria-label', isAr() ? 'إغلاق' : 'Close');
 
       stops.forEach(function (a, i) {
         a.querySelector('.lift__fl').textContent = label(i);
@@ -302,11 +269,6 @@
           toastTimer = setTimeout(function () { rail.classList.remove('is-announce'); }, 1500);
         }
       }
-      pbtns.forEach(function (a, i) {
-        a.classList.toggle('is-current', i === f);
-        if (i === f) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-      });
-      if (panel) panel.querySelector('.mpanel__num').textContent = label(f);
       if (mlift) {
         mlift.querySelector('.mlift__fl').textContent = label(f);
         mlift.querySelector('.mlift__nm').textContent = nameOf(f);

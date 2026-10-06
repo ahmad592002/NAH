@@ -4,10 +4,9 @@
    PALETTE RATIONALE
    The logo is overwhelmingly navy with a single small orange
    chevron — roughly 96:4. The page follows that ratio: navy is
-   the structural surface colour (~38% of the page), orange is
-   reserved for four roles only. Brass appears on navy surfaces
-   only, the navy+metallic pairing every major lift brand uses
-   (Otis, Al-Qemah, ILC), so it never competes with the orange.
+   the structural surface colour (~38% of the page); orange and
+   white are the only accents. Orange text sits on navy only —
+   on white it fails contrast, so it is used there as fills.
 
    TYPE RATIONALE
    Archivo (industrial grotesque, heavy) + Inter (workhorse UI)
@@ -46,7 +45,6 @@
   --accent-wash: #FDF0E9;
 
   /* ── metallic, on navy surfaces only ── */
-  --brass: #C9A66B;
 
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --shadow:      0 2px 14px rgba(6,24,43,.08);
@@ -104,10 +102,10 @@ section { padding: 78px 0; position: relative; }
   display: block; font-size: 12.5px; font-weight: 600;
   letter-spacing: .08em; color: var(--steel-500); margin-bottom: 12px;
 }
-.on-navy .kicker, .on-deep .kicker { color: var(--brass); }
+.on-navy .kicker, .on-deep .kicker { color: var(--accent); }
 .sec-head h2 { font-size: clamp(26px, 3vw, 38px); }
 .sec-head .rule { width: 56px; height: 3px; background: var(--navy-800); margin-top: 18px; }
-.on-navy .sec-head .rule, .on-deep .sec-head .rule { background: var(--brass); }
+.on-navy .sec-head .rule, .on-deep .sec-head .rule { background: var(--accent); }
 .sec-head.center .rule { margin-inline: auto; }
 .sec-head .lede { margin-top: 20px; color: var(--body); font-size: 17px; }
 .on-navy .lede, .on-deep .lede { color: var(--steel-300); }
@@ -149,7 +147,7 @@ html[dir="rtl"] .brand__txt span { letter-spacing: 0; text-transform: none; font
 .navlinks { display: flex; gap: 28px; margin-inline-start: auto; }
 .navlinks a { font-size: 15px; font-weight: 500; color: var(--steel-300);
   padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
-.navlinks a:hover, .navlinks a.is-active { color: #fff; border-bottom-color: var(--brass); }
+.navlinks a:hover, .navlinks a.is-active { color: #fff; border-bottom-color: var(--accent); }
 
 .navcta { display: flex; align-items: center; gap: 12px; flex: none; margin-inline-start: 24px; }
 .langtog { display: inline-flex; border: 1px solid var(--navy-600); border-radius: 3px; overflow: hidden; }
@@ -193,9 +191,9 @@ html[dir="rtl"] .brand__txt span { letter-spacing: 0; text-transform: none; font
 .hero__in { position: relative; z-index: 2; padding: 86px 0 92px; max-width: 46rem; }
 .hero__eyebrow {
   display: inline-flex; align-items: center; gap: 14px; margin-bottom: 22px;
-  font-size: 13px; font-weight: 600; letter-spacing: .06em; color: var(--brass);
+  font-size: 13px; font-weight: 600; letter-spacing: .06em; color: #fff;
 }
-.hero__eyebrow::before { content: ''; width: 34px; height: 2px; background: var(--brass); }
+.hero__eyebrow::before { content: ''; width: 34px; height: 2px; background: var(--accent); }
 html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 
 .hero h1 { color: #fff; font-size: clamp(34px, 5vw, 60px); font-weight: 700; }
@@ -203,9 +201,17 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .hero__sub { margin-top: 22px; max-width: 36rem; color: var(--steel-300); font-size: 17.5px; }
 .hero__actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
 .hero__note { margin-top: 26px; font-size: 14.5px; color: var(--steel-300); }
+@media (max-width: 767px) {
+  /* phones: fewer things on the first screen. The pattern and watermark go,
+     the WhatsApp button is already the floating one, and the note repeats the
+     paragraph above it. */
+  .hero::before, .hero__glyph, .hero__note, .hero__actions .btn-out { display: none; }
+  .hero .hero__in { padding-block: 48px 56px; }   /* beats the later .wrap shorthand */
+  .hero__actions .btn-solid { width: 100%; justify-content: center; }
+}
 
-/* ── stats band — solid navy with a brass edge ─────────── */
-.strip { background: var(--navy-800); border-top: 3px solid var(--brass); }
+/* ── stats band — solid navy with an orange edge ─────────── */
+.strip { background: var(--navy-800); border-top: 3px solid var(--accent); }
 .strip__in { display: grid; grid-template-columns: repeat(4, 1fr); }
 .strip__i { padding: 42px 24px; text-align: center; border-inline-start: 1px solid var(--navy-600); }
 .strip__i:first-child { border-inline-start: 0; }
@@ -225,7 +231,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
    real project images arrive — see the note in index.html. */
 .card__tile { display: grid; place-items: center; height: 170px; background: var(--navy-800);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 14 L17 28 L17 34 L32 20 L47 34 L47 28 Z' fill='%23ffffff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
-.card__tile svg { width: 60px; height: 60px; color: var(--brass); }
+.card__tile svg { width: 60px; height: 60px; color: var(--accent); }
 .card__body { padding: 24px 22px 26px; flex: 1; display: flex; flex-direction: column; }
 .card__body h3 { font-size: 19px; font-weight: 700; color: var(--ink); }
 .card__body p { margin-top: 10px; font-size: 15.5px; color: var(--body); flex: 1; }
@@ -240,7 +246,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .type:hover { background: var(--navy-900); }
 .type:hover::before { opacity: 1; }
 .type__n { font-family: 'Archivo',sans-serif; font-size: 15px; font-weight: 700;
-  color: var(--brass); font-variant-numeric: tabular-nums; }
+  color: var(--accent); font-variant-numeric: tabular-nums; }
 .type h3 { margin-top: 12px; font-size: 17px; font-weight: 700; color: #fff; }
 .type p { margin-top: 8px; font-size: 14.5px; color: var(--steel-300); }
 
@@ -256,7 +262,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .work__item p { margin-top: 8px; font-size: 14.5px; color: var(--steel-300); }
 
 .work__cta { margin-top: 26px; padding: 24px 26px; background: #fff;
-  border: 1px solid var(--ice-200); border-inline-start: 4px solid var(--brass); border-radius: 3px;
+  border: 1px solid var(--ice-200); border-inline-start: 4px solid var(--accent); border-radius: 3px;
   display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
 .work__cta p { font-size: 16.5px; font-weight: 500; color: var(--ink); max-width: 44rem; }
 
@@ -367,7 +373,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .on-deep .panel h3 { color: #fff; border-bottom-color: var(--navy-600); }
 .on-deep .panel li { color: var(--steel-300); border-bottom-color: var(--navy-600); }
 .on-deep .panel li b { color: #fff; }
-.on-deep .panel li svg { color: var(--brass); }
+.on-deep .panel li svg { color: var(--accent); }
 
 .terms { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
   background: var(--ice-300); border: 1px solid var(--ice-300); margin-top: 26px; }
@@ -378,8 +384,8 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 
 /* ── EN 81 seal ─────────────────────────────────────────── */
 .seal { display: flex; align-items: center; gap: 18px; margin-top: 30px;
-  padding: 20px 22px; background: var(--navy-800); border-inline-start: 4px solid var(--brass); border-radius: 3px; }
-.seal svg { width: 44px; height: 44px; color: var(--brass); flex: none; }
+  padding: 20px 22px; background: var(--navy-800); border-inline-start: 4px solid var(--accent); border-radius: 3px; }
+.seal svg { width: 44px; height: 44px; color: var(--accent); flex: none; }
 .seal b { display: block; font-size: 17px; font-weight: 700; color: #fff; }
 .seal p { margin-top: 4px; font-size: 14.5px; color: var(--steel-300); }
 
@@ -392,7 +398,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
   transition: border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
 }
 .faq:hover { border-inline-start-color: var(--accent); box-shadow: var(--shadow-lift); transform: translateY(-3px); }
-/* navy, not brass: brass on white is 2.3:1 — brass is for navy surfaces only */
+/* navy, not orange: orange text on white fails contrast */
 .faq__n { display: block; font-family: "Archivo", sans-serif; font-size: 15px; font-weight: 700;
   color: var(--steel-500); font-variant-numeric: tabular-nums; }
 .faq__q { margin-top: 10px; font-size: 18.5px; font-weight: 700; color: var(--ink); }
@@ -481,7 +487,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
   }
 }
 
-/* floor display: an amber LED panel set in a brass frame */
+/* floor display: an amber LED panel */
 .lift__display {
   width: var(--disp-w); height: var(--disp-h); border-radius: 12px 12px 6px 6px;
   background: var(--navy-900);
@@ -545,7 +551,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
 
 .lift__cable {
   position: absolute; top: var(--cable-top); width: 1px;
-  background: var(--brass);
+  background: var(--accent);
   transition: height .16s linear;
 }
 .lift__cable--cab { left: var(--cab-cx);
@@ -576,7 +582,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
   background: transparent; transition: background .2s;   /* only the current/hovered landing shows */
 }
 .lift__stop:hover::after, .lift__stop.is-current::after {
-  background: var(--brass);
+  background: var(--accent);
 }
 .lift__stop:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
@@ -598,7 +604,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   font-family: "Archivo", sans-serif; font-size: 12.5px; font-weight: 700; color: var(--steel-300);
 }
 .lift:hover .lift__name, .lift:focus-within .lift__name { opacity: 1; transform: translateY(-50%); }
-.lift__stop.is-current .lift__name { background: var(--brass); color: var(--navy-900); }
+.lift__stop.is-current .lift__name { background: var(--accent); color: var(--navy-900); }
 .lift__stop.is-current .lift__fl, .lift__toast .lift__fl {
   color: var(--navy-900); background: var(--accent);
 }
@@ -612,7 +618,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 }
 .lift__cab::before {
   content: ""; position: absolute; left: -3px; right: -3px; top: -5px; height: 3px; border-radius: 2px;
-  background: var(--brass);
+  background: var(--accent);
 }
 .lift__car {
   position: absolute; inset: 0; overflow: hidden; border-radius: 3px;
@@ -635,7 +641,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 
 .lift__toast {                                         /* arrival announcement */
   top: calc(var(--top) + var(--f, 0) * var(--step) + var(--cabh) / 2);
-  background: var(--brass); color: var(--navy-900);
+  background: var(--accent); color: var(--navy-900);
 }
 .lift.is-announce .lift__toast { opacity: 1; transform: translateY(-50%); }
 .lift:hover .lift__toast, .lift:focus-within .lift__toast { opacity: 0; }
@@ -652,7 +658,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
    thumb — its position IS the scroll position (--sp, 0…1); each floor dot sits
    where that section begins (--t); dragging the cab scrolls the page; a tap
    opens the floor panel. Flat navy/orange, like the desktop rail. */
-.mlift, .mpanel { display: none; }
+.mlift { display: none; }
 @media (max-width: 1199px) {
   /* The page scrolls inside <body>, not the window. Mobile browsers (iOS Safari
      above all) ignore every attempt to hide the window's own scrollbar, but an
@@ -687,11 +693,10 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 .mlift { --ch: 36px; }                                   /* cab height */
 .mlift__btn {
   display: block; width: 100%; height: 100%; padding: 0; margin: 0;
-  background: none; border: 0; cursor: grab; color: inherit; font: inherit;
+  cursor: grab;
   -webkit-tap-highlight-color: transparent;
 }
 .mlift.is-dragging .mlift__btn { cursor: grabbing; }
-.mlift__btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
 
 .mlift__shaft { position: absolute; inset: 0; }
 .mlift__shaft::before {                                   /* the shaft */
@@ -748,48 +753,6 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   background: var(--accent); color: var(--navy-900);
   font-family: "Archivo", sans-serif; font-size: 13px; font-weight: 700;
 }
-
-/* floor panel (bottom sheet) */
-.mpanel:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 120; }
-.mpanel__backdrop { position: absolute; inset: 0; background: rgba(6,24,43,.62); }
-.mpanel__sheet {
-  position: absolute; inset-inline: 0; bottom: 0; max-width: 520px; margin-inline: auto;
-  padding: 18px 20px calc(24px + env(safe-area-inset-bottom));
-  border-radius: 20px 20px 0 0; background: var(--navy-800);
-  animation: sheetUp .28s var(--ease);
-}
-@keyframes sheetUp { from { transform: translateY(100%); } to { transform: none; } }
-.mpanel__head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-.mpanel__display {
-  display: inline-flex; align-items: center; gap: 7px; height: 40px; padding: 0 12px;
-  border-radius: 8px; background: var(--navy-900);
-}
-.mpanel__num {
-  font-family: "Archivo", sans-serif; font-weight: 700; font-size: 18px; line-height: 1;
-  color: var(--accent); font-variant-numeric: tabular-nums;
-}
-.mpanel__title { color: #fff; font-size: 17px; font-weight: 700; }
-.mpanel__close {
-  margin-inline-start: auto; width: 42px; height: 42px; border-radius: 50%; border: 0; cursor: pointer;
-  background: var(--navy-700); color: #fff; font-size: 24px; line-height: 1;
-}
-.mpanel__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 10px; }
-.mpanel__fbtn {
-  display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
-  color: var(--steel-300); font-size: 12.5px; font-weight: 600; line-height: 1.3;
-  -webkit-tap-highlight-color: transparent;
-}
-.mpanel__fbtn b {
-  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--navy-700); color: #fff;
-  font-family: "Archivo", sans-serif; font-size: 21px; font-weight: 700;
-  transition: background .2s, color .2s;
-}
-.mpanel__fbtn.is-current { color: #fff; }
-.mpanel__fbtn.is-current b { background: var(--accent); color: var(--navy-900); }
-.mpanel__fbtn:active b { background: var(--brass); color: var(--navy-900); }
-.mpanel__fbtn:focus-visible { outline: none; }
-.mpanel__fbtn:focus-visible b { outline: 3px solid var(--accent); outline-offset: 3px; }
 
 /* ═══════════ floating whatsapp ═══════════ */
 .fab { position: fixed; inset-inline-end: 24px; bottom: 24px; z-index: 95;
@@ -856,7 +819,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 @media print {
   .nav, .fab, .skip, .hero__glyph, .map, .langtog, .work__cta .btn { display: none !important; }
   .lift { display: none !important; }
-  .mlift, .mpanel { display: none !important; }
+  .mlift { display: none !important; }
   body { font-size: 11pt; line-height: 1.5; color: #000; background: #fff; }
   section { padding: 14pt 0; break-inside: avoid; }
   .on-navy, .on-deep, .hero { background: #fff !important; color: #000 !important; }
