@@ -654,16 +654,27 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
    opens the floor panel. Flat navy/orange, like the desktop rail. */
 .mlift, .mpanel { display: none; }
 @media (max-width: 1199px) {
-  html { scrollbar-width: none; }                        /* Firefox, Chrome 121+ */
-  html::-webkit-scrollbar { display: none; width: 0; height: 0; }   /* older Chrome, Safari */
+  /* The page scrolls inside <body>, not the window. Mobile browsers (iOS Safari
+     above all) ignore every attempt to hide the window's own scrollbar, but an
+     element's scrollbar can always be hidden — so the elevator is the only one. */
+  html { height: 100%; overflow: hidden; scrollbar-width: none; }
+  html::-webkit-scrollbar { display: none; }
+  body {
+    height: 100%; overflow-x: hidden; overflow-y: auto;
+    -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain;
+    scroll-behavior: smooth; scroll-padding-top: var(--nav-h);
+    scrollbar-width: none;                               /* Firefox, Chrome 121+ */
+  }
+  body::-webkit-scrollbar { display: none; width: 0; height: 0; }   /* Safari, older Chrome */
 
   .mlift {
     display: block; position: fixed; z-index: 85;
-    inset-inline-end: 0; width: 18px;                    /* fits the 18px phone gutter */
-    top: calc(var(--nav-h) + 16px); bottom: 92px;        /* clear of the nav bar and the WhatsApp button */
+    inset-inline-end: 0; width: 22px;
+    top: calc(var(--nav-h) + 14px); bottom: 92px;        /* clear of the nav bar and the WhatsApp button */
     touch-action: none;                                  /* a drag here moves the cab, not the page */
   }
 }
+.mlift { --ch: 36px; }                                   /* cab height */
 .mlift__btn {
   display: block; width: 100%; height: 100%; padding: 0; margin: 0;
   background: none; border: 0; cursor: grab; color: inherit; font: inherit;
@@ -673,45 +684,57 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 .mlift__btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
 
 .mlift__shaft { position: absolute; inset: 0; }
-.mlift__shaft::before {                                   /* the track */
-  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; margin-left: -2px;
-  border-radius: 2px; background: rgba(138,164,192,.4); transition: background .2s;
+.mlift__shaft::before {                                   /* the shaft */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 8px; margin-left: -4px;
+  border-radius: 4px; background: rgba(78,116,154,.22); transition: background .2s;
 }
-.mlift.is-dragging .mlift__shaft::before { background: rgba(138,164,192,.75); }
-.mlift__ticks span {                                      /* one dot per floor, where its section starts */
-  position: absolute; left: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%;
-  background: rgba(138,164,192,.75);
-  top: calc(var(--t, 0) * (100% - 22px) + 11px);
+.mlift.is-dragging .mlift__shaft::before { background: rgba(78,116,154,.36); }
+.mlift__shaft::after {                                    /* the cable, from the top down to the cab */
+  content: ""; position: absolute; top: 0; left: 50%; width: 2px; margin-left: -1px;
+  height: calc(var(--sp, 0) * (100% - var(--ch))); background: var(--steel-400);
+}
+.mlift__ticks span {                                      /* a sill at each floor, where its section starts */
+  position: absolute; left: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 1px;
+  background: var(--steel-300);
+  top: calc(var(--t, 0) * (100% - var(--ch)) + var(--ch) / 2);
 }
 .mlift__cab {                                             /* the cab = scroll thumb */
-  position: absolute; left: 50%; width: 10px; height: 22px; margin-left: -5px;
-  overflow: hidden; border-radius: 3px; background: var(--accent);
-  top: calc(var(--sp, 0) * (100% - 22px));
+  position: absolute; left: 50%; width: 16px; height: var(--ch); margin-left: -8px;
+  overflow: hidden; border-radius: 4px; background: var(--accent);
+  top: calc(var(--sp, 0) * (100% - var(--ch)));
   transition: width .15s var(--ease), margin .15s var(--ease);
 }
-.mlift.is-dragging .mlift__cab { width: 14px; margin-left: -7px; }
-.mlift__cab i {
-  position: absolute; top: 0; bottom: 0; width: calc(50% - .5px); background: #C9D5E3;
+.mlift.is-dragging .mlift__cab { width: 20px; margin-left: -10px; }
+.mlift__cab::before {                                     /* the car's opening, dark inside */
+  content: ""; position: absolute; top: 7px; bottom: 3px; left: 3px; right: 3px;
+  border-radius: 1px; background: var(--navy-900);
+}
+.mlift__cab::after {                                      /* little light on the car's header */
+  content: ""; position: absolute; top: 2px; left: 50%; width: 4px; height: 2px; margin-left: -2px;
+  border-radius: 1px; background: #fff; opacity: .9;
+}
+.mlift__cab i {                                           /* two doors that part when the cab stops */
+  position: absolute; top: 7px; bottom: 3px; width: calc(50% - 3.5px); background: #DCE5EF;
   transition: transform .45s var(--ease);
 }
-.mlift__cab i:first-child { left: 0; }
-.mlift__cab i:last-child  { right: 0; }
-.mlift.is-open .mlift__cab i:first-child { transform: translateX(-100%); }
-.mlift.is-open .mlift__cab i:last-child  { transform: translateX(100%); }
+.mlift__cab i:first-child { left: 3px; }
+.mlift__cab i:last-child  { right: 3px; }
+.mlift.is-open .mlift__cab i:first-child { transform: translateX(calc(-100% - 3px)); }
+.mlift.is-open .mlift__cab i:last-child  { transform: translateX(calc(100% + 3px)); }
 
 .mlift__toast {                                           /* floor name beside the cab */
   position: absolute; inset-inline-end: calc(100% + 6px);
-  top: calc(var(--sp, 0) * (100% - 22px) + 11px); transform: translateY(-50%);
+  top: calc(var(--sp, 0) * (100% - var(--ch)) + var(--ch) / 2); transform: translateY(-50%);
   display: flex; align-items: center; gap: 8px; white-space: nowrap; pointer-events: none;
-  padding-block: 4px; padding-inline: 4px 13px; border-radius: 99px;
-  background: var(--navy-900); color: #fff; font-size: 13px; font-weight: 600; line-height: 1;
+  padding-block: 5px; padding-inline: 5px 14px; border-radius: 99px;
+  background: var(--navy-900); color: #fff; font-size: 14px; font-weight: 600; line-height: 1;
   opacity: 0; transition: opacity .22s var(--ease);
 }
 .mlift.is-announce .mlift__toast, .mlift.is-dragging .mlift__toast { opacity: 1; }
 .mlift__fl {
-  display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 11px; padding: 0 4px;
+  display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 12px; padding: 0 5px;
   background: var(--accent); color: var(--navy-900);
-  font-family: "Archivo", sans-serif; font-size: 12.5px; font-weight: 700;
+  font-family: "Archivo", sans-serif; font-size: 13px; font-weight: 700;
 }
 
 /* floor panel (bottom sheet) */

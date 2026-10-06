@@ -159,6 +159,11 @@
     var mlift = document.getElementById('mlift'), panel = document.getElementById('mpanel');   // mobile scrollbar + floor panel
     if (!rail && !mlift) return;
 
+    // Below 1200px the page scrolls inside <body> (see styles.css), otherwise the window.
+    function sc() { return getComputedStyle(document.documentElement).overflowY === 'hidden' ? document.body : document.scrollingElement; }
+    function sY() { return sc().scrollTop; }
+    function sMax() { var e = sc(); return e.scrollHeight - e.clientHeight; }
+
     var FLOORS = [
       { id: 'top',      ar: 'الرئيسية',      en: 'Home' },
       { id: 'services', ar: 'الخدمات',       en: 'Services' },
@@ -249,10 +254,9 @@
           // the release to the container, so a plain tap never reached the button.
           try { mlift.setPointerCapture(e.pointerId); } catch (err) { /* not capturable */ }
         }
-        var r = shaftEl.getBoundingClientRect(), CAB = 22;
+        var r = shaftEl.getBoundingClientRect(), CAB = mlift.querySelector('.mlift__cab').offsetHeight;
         var p = Math.max(0, Math.min(1, (e.clientY - r.top - CAB / 2) / (r.height - CAB)));
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        window.scrollTo({ top: p * max, behavior: 'instant' });
+        sc().scrollTo({ top: p * sMax(), behavior: 'instant' });
         e.preventDefault();
       });
       var endDrag = function () {
@@ -316,10 +320,10 @@
 
     function measure() {
       tops = FLOORS.map(function (f) {
-        return document.getElementById(f.id).getBoundingClientRect().top + window.scrollY;
+        return document.getElementById(f.id).getBoundingClientRect().top + sY();
       });
-      // each floor dot sits at the scroll position where that floor becomes current
-      var max = document.documentElement.scrollHeight - window.innerHeight;
+      // each floor sill sits at the scroll position where that floor becomes current
+      var max = sMax();
       ticks.forEach(function (t, i) {
         var at = i === N - 1 ? 1 : (tops[i] - window.innerHeight * 0.4) / max;
         t.style.setProperty('--t', max > 0 ? Math.max(0, Math.min(1, at)).toFixed(4) : '0');
@@ -328,11 +332,11 @@
 
     // continuous position: 0 = top floor ... N-1 = ground floor
     function position() {
-      var y = window.scrollY + window.innerHeight * 0.4, i = 0;
+      var y = sY() + window.innerHeight * 0.4, i = 0;
       while (i < N - 1 && y >= tops[i + 1]) i++;
       var pos = i;
       if (i < N - 1) pos = i + Math.max(0, Math.min(1, (y - tops[i]) / (tops[i + 1] - tops[i])));
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) pos = N - 1;
+      if (sY() >= sMax() - 2) pos = N - 1;
       return pos;
     }
 
@@ -347,7 +351,7 @@
 
     function update() {
       queued = false;
-      var pos = position(), y = window.scrollY;
+      var pos = position(), y = sY();
       // Movement and direction come from the actual scroll, not from pos:
       // fonts, map tiles and reveals shift the layout and nudge pos without
       // anyone scrolling, which flipped the arrow and kept the doors shut.
@@ -364,7 +368,7 @@
       last = pos; lastY = y;
       if (rail) rail.style.setProperty('--pos', pos.toFixed(3));
       if (mlift) {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var max = sMax();
         mlift.style.setProperty('--sp', max > 0 ? Math.max(0, Math.min(1, y / max)).toFixed(4) : '0');
       }
       var floor = Math.round(pos);
@@ -379,7 +383,7 @@
     update();
     els.forEach(function (el) { el.classList.add('is-open'); });
 
-    window.addEventListener('scroll', queue, { passive: true });
+    document.addEventListener('scroll', queue, { passive: true, capture: true });
     window.addEventListener('resize', function () { measure(); queue(); });
     window.addEventListener('load', function () { measure(); queue(); });
     if ('ResizeObserver' in window) {
@@ -459,7 +463,7 @@
       set(Math.max(0, Math.min(1, p)));
     }
     function queue() { if (!queued) { queued = true; requestAnimationFrame(update); } }
-    window.addEventListener('scroll', queue, { passive: true });
+    document.addEventListener('scroll', queue, { passive: true, capture: true });   // window or <body> scroller
     window.addEventListener('resize', queue);
     update();
   })();
