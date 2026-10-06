@@ -268,10 +268,21 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .work__item h3 { margin-top: 12px; font-size: 17px; font-weight: 700; color: #fff; }
 .work__item p { margin-top: 8px; font-size: 14.5px; color: var(--steel-300); }
 
-.work__cta { margin-top: 26px; padding: 24px 26px; background: #fff;
-  border: 1px solid var(--ice-200); border-inline-start: 4px solid var(--accent); border-radius: 3px;
-  display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
-.work__cta p { font-size: 16.5px; font-weight: 500; color: var(--ink); max-width: 44rem; }
+/* closing row of the dark grid: photos on request, straight to WhatsApp */
+.work__cta { margin-top: 1px; padding: 26px 28px; background: var(--navy-900);
+  display: flex; align-items: center; gap: 20px; }
+.work__ico { flex: none; display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%;
+  background: var(--navy-700); color: var(--accent); }
+.work__ico svg { width: 28px; height: 28px; }
+.work__txt { flex: 1; min-width: 0; }
+.work__txt h3 { font-size: 18px; font-weight: 700; color: #fff; }
+.work__txt p { margin-top: 4px; font-size: 15px; color: var(--steel-300); }
+.work__cta .btn { flex: none; }
+@media (max-width: 640px) {
+  .work__cta { flex-wrap: wrap; padding: 24px 22px; gap: 16px; }
+  .work__txt { flex-basis: calc(100% - 74px); }
+  .work__cta .btn { width: 100%; justify-content: center; }
+}
 
 
 /* ═══════════ process — connected timeline ═══════════
