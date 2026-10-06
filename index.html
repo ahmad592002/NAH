@@ -35,7 +35,7 @@
       integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<link rel="stylesheet" href="assets/css/styles.css?v=12" />
+<link rel="stylesheet" href="assets/css/styles.css?v=13" />
 
 <!-- Structured data. Every value below comes from the client's own
      questionnaire — nothing is invented. Add "sameAs" (social pages)
@@ -545,6 +545,20 @@
           <li style="border-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5l10 -10"/></svg><span data-en="Warranty from 1 to 3 years, stated in the contract" data-ar="كفالة من سنة إلى 3 سنوات مذكورة في العقد">كفالة من سنة إلى 3 سنوات مذكورة في العقد</span></li>
         </ul>
       </div>
+
+      <!-- fills the column beside the taller form on wide screens; hidden once they stack -->
+      <div class="qnext">
+        <b class="qnext__t" data-en="After you send" data-ar="بعد الإرسال">بعد الإرسال</b>
+        <ol>
+          <li><span>1</span><p data-en="We call you back during working hours to book the visit." data-ar="نعاود الاتصال بك خلال ساعات العمل لتحديد موعد المعاينة.">نعاود الاتصال بك خلال ساعات العمل لتحديد موعد المعاينة.</p></li>
+          <li><span>2</span><p data-en="We visit the site at no cost and take the measurements." data-ar="نزور الموقع مجاناً ونأخذ القياسات اللازمة.">نزور الموقع مجاناً ونأخذ القياسات اللازمة.</p></li>
+          <li><span>3</span><p data-en="You receive a written, itemised quote." data-ar="نرسل لك عرض سعر مكتوباً ومفصّلاً.">نرسل لك عرض سعر مكتوباً ومفصّلاً.</p></li>
+        </ol>
+      </div>
+      <a class="qcall" href="tel:+96103426522">
+        <span class="qcall__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/></svg></span>
+        <span class="qcall__txt"><span data-en="Prefer to talk? Call us" data-ar="تفضّل التحدّث مباشرة؟ اتصل بنا">تفضّل التحدّث مباشرة؟ اتصل بنا</span><b dir="ltr">+961 03 426 522</b></span>
+      </a>
     </div>
 
     <form class="form rev" id="quoteForm" novalidate>
@@ -761,7 +775,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
         integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-<script src="assets/js/main.js?v=12" defer></script>
+<script src="assets/js/main.js?v=13" defer></script>
 <!-- Icons: Tabler Icons (MIT, tabler.io/icons); WhatsApp logo: Simple Icons (CC0). -->
 </body>
 </html>

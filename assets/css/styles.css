@@ -424,6 +424,25 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 
 /* ═══════════ quote ═══════════ */
 .quote__in { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 52px; align-items: start; }
+/* the text column runs the full height of the form, call line pinned to its foot */
+.quote__in > .sec-head { align-self: stretch; display: flex; flex-direction: column; margin-bottom: 0; }
+.qnext { margin-top: 34px; }
+.qnext__t { display: block; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: var(--accent); }
+html[dir="rtl"] .qnext__t { letter-spacing: 0; font-size: 14px; }
+.qnext ol { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 16px; }
+.qnext li { display: flex; align-items: flex-start; gap: 14px; }
+.qnext li span { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--navy-700); color: #fff; font-family: "Archivo", sans-serif; font-size: 14px; font-weight: 700; }
+.qnext li p { margin: 3px 0 0; font-size: 15.5px; color: var(--steel-300); }
+.qcall { margin-top: auto; display: flex; align-items: center; gap: 16px; padding: 20px 22px;
+  background: var(--navy-800); border-radius: 3px; transition: background .25s var(--ease); }
+.qcall:hover { background: var(--navy-700); }
+.qcall__ico { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--accent); color: var(--navy-900); }
+.qcall__ico svg { width: 22px; height: 22px; }
+.qcall__txt span { display: block; font-size: 14px; color: var(--steel-300); }
+.qcall__txt b { display: block; margin-top: 3px; font-family: "Archivo", sans-serif; font-size: 20px; font-weight: 700; color: #fff; }
+html[dir="rtl"] .qcall__txt b { text-align: right; }
 .form { background: #fff; border-radius: 4px; padding: 34px; box-shadow: var(--shadow-card); }
 /* the form is a white card inside .on-deep, whose h3 rule would make this white-on-white */
 .form h3 { font-size: 21px; margin-bottom: 6px; color: var(--ink); }
@@ -785,6 +804,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   .cards { grid-template-columns: repeat(2, 1fr); }
   .types { grid-template-columns: repeat(2, 1fr); }
   .quote__in, .cover { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .qnext, .qcall { display: none; }   /* stacked: no empty column to fill */
   .cgrid { grid-template-columns: repeat(2, 1fr); }
   .fcols { grid-template-columns: 1fr 1fr; }
   .work { grid-template-columns: repeat(2, 1fr); }
