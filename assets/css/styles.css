@@ -190,17 +190,21 @@ html[dir="ltr"] .navlinks { gap: 20px; }
     radial-gradient(ellipse 80% 70% at 72% 38%, #14355A 0%, transparent 62%),
     linear-gradient(160deg, #0B2742 0%, var(--navy-900) 70%);
 }
-.hero::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cpath d='M32 14 L17 28 L17 34 L32 20 L47 34 L47 28 Z' fill='%23ffffff' fill-opacity='0.030'/%3E%3C/svg%3E");
+.hero__in { position: relative; z-index: 2; padding-block: 86px 92px;
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 56px; align-items: center; }
+.hero__txt > * { max-width: 40rem; }
+/* desktop: the product itself beside the headline, one fact pinned to it */
+.hero__media { position: relative; margin: 0; height: clamp(380px, calc(100svh - var(--nav-h) - 150px), 580px); }
+.hero__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 44% 50%; border-radius: 4px; }
+.hero__badge { position: absolute; inset-inline-start: -26px; bottom: 30px; display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; background: #fff; border-inline-start: 4px solid var(--accent); border-radius: 3px; }
+.hero__badge b { font-family: 'Archivo', sans-serif; font-size: 34px; font-weight: 700; line-height: 1; color: var(--navy-800);
+  direction: ltr; unicode-bidi: isolate; }
+.hero__badge span { max-width: 9.5rem; font-size: 14px; line-height: 1.4; color: var(--body); }
+@media (max-width: 1040px) {
+  .hero__in { grid-template-columns: minmax(0, 1fr); }
+  .hero__media { display: none; }      /* tablets and phones keep the short text-only hero */
 }
-/* oversized brand chevron watermark */
-.hero__glyph {
-  position: absolute; inset-inline-end: -60px; top: 50%; transform: translateY(-50%);
-  width: 520px; height: 520px; opacity: .085; pointer-events: none; color: #fff;
-}
-.hero__in { position: relative; z-index: 2; padding-block: 86px 92px; }
-.hero__in > * { max-width: 46rem; }
 .hero__eyebrow {
   display: inline-flex; align-items: center; gap: 14px; margin-bottom: 22px;
   font-size: 13px; font-weight: 600; letter-spacing: .06em; color: #fff;
@@ -217,7 +221,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
   /* phones: fewer things on the first screen. The pattern and watermark go,
      the WhatsApp button is already the floating one, and the note repeats the
      paragraph above it. */
-  .hero::before, .hero__glyph, .hero__note, .hero__actions .btn-out { display: none; }
+  .hero__note, .hero__actions .btn-out { display: none; }
   .hero .hero__in { padding-block: 48px 56px; }   /* beats the later .wrap shorthand */
   .hero__actions .btn-solid { width: 100%; justify-content: center; }
 }
@@ -825,7 +829,6 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   .strip__in { grid-template-columns: repeat(2, 1fr); }
   .strip__i:nth-child(3) { border-inline-start: 0; }
   .strip__i:nth-child(n+3) { border-top: 1px solid var(--navy-600); }
-  .hero__glyph { display: none; }
 }
 /* The full nav (logo + 7 links + language + quote button) needs ~1140px.
    Below 1200px it switches to the burger menu; before this it scrolled the
@@ -865,7 +868,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 
 /* ── print: someone will print this to take to a contractor ── */
 @media print {
-  .nav, .fab, .skip, .hero__glyph, .map, .langtog, .work__cta .btn { display: none !important; }
+  .nav, .fab, .skip, .hero__media, .map, .langtog, .work__cta .btn { display: none !important; }
   .lift { display: none !important; }
   .mlift { display: none !important; }
   body { font-size: 11pt; line-height: 1.5; color: #000; background: #fff; }

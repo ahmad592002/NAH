@@ -70,7 +70,7 @@ The service-card and elevator-type photos (`assets/img/svc-*.jpg`, `assets/img/t
 | svc-modern.jpg | jjes84 | https://www.flickr.com/photos/37779177@N03/54434001021 | CC BY 2.0 |
 | svc-parts.jpg | Simon Job | https://www.flickr.com/photos/56804078@N00/6636779789 | CC BY 2.0 |
 | type-passenger.jpg | ricardodiaz11 | https://www.flickr.com/photos/41652235@N00/2311260401 | CC BY 2.0 |
-| type-home.jpg | MantiFirero | https://commons.wikimedia.org/w/index.php?curid=164192412 | CC BY-SA 4.0 |
+| type-home.jpg, hero-lift.jpg | MantiFirero | https://commons.wikimedia.org/w/index.php?curid=164192412 | CC BY-SA 4.0 |
 | type-freight.jpg | David Wheatley | https://commons.wikimedia.org/w/index.php?curid=136790587 | CC BY-SA 4.0 |
 | type-car.jpg | Spanish Coches | https://commons.wikimedia.org/w/index.php?curid=38116891 | CC BY 2.0 |
 | type-hospital.jpg | Dieselducy | https://commons.wikimedia.org/w/index.php?curid=26202673 | CC BY-SA 3.0 |
