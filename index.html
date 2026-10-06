@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>N.A.H — بيع وتركيب وصيانة المصاعد في لبنان</title>
+<meta name="description" content="شركة N.A.H لبيع وتركيب وصيانة المصاعد لجميع الماركات في لبنان، من عكار إلى بيروت. معاينة مجانية للموقع، عرض سعر مكتوب، وكفالة حتى ٣ سنوات وفق مواصفات السلامة الأوروبية EN 81. اطلب عرض سعر عبر واتساب." />
+<meta name="theme-color" content="#0A243F" />
+
+<meta property="og:title" content="N.A.H — تركيب وصيانة المصاعد في لبنان" />
+<meta property="og:description" content="بيع وتركيب وصيانة المصاعد لجميع الماركات في لبنان. معاينة مجانية وعرض سعر مكتوب." />
+<link rel="canonical" href="https://ahmad592002.github.io/NAH/" />
+<meta property="og:url" content="https://ahmad592002.github.io/NAH/" />
+<meta property="og:image" content="https://ahmad592002.github.io/NAH/assets/img/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ar_LB" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:site_name" content="N.A.H" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+<!-- iOS ignores SVG for the home-screen icon, so this one is a real PNG -->
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Leaflet — real map tiles with no API key and no billing account.
+     CARTO's dark basemap is used so the map sits inside the navy panel
+     instead of fighting it. Both are free for a site this size. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+      integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="assets/css/styles.css" />
+
+<!-- Structured data. Every value below comes from the client's own
+     questionnaire — nothing is invented. Add "sameAs" (social pages)
+     and "address" once the domain and social accounts exist. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "#nah",
+  "name": "N.A.H",
+  "alternateName": "مصاعد N.A.H",
+  "description": "بيع وتركيب وصيانة المصاعد لجميع الماركات في لبنان، من عكار إلى بيروت. معاينة مجانية للموقع وكفالة من سنة إلى ثلاث سنوات.",
+  "url": "https://ahmad592002.github.io/NAH/",
+  "image": "https://ahmad592002.github.io/NAH/assets/img/og-image.jpg",
+  "logo": "https://ahmad592002.github.io/NAH/assets/img/logo.jpg",
+  "foundingDate": "2016",
+  "telephone": "+96176527121",
+  "email": "khalidinazir21@gmail.com",
+  "priceRange": "$$",
+  "currenciesAccepted": "USD, LBP",
+  "paymentAccepted": "Cash, OMT, Whish, Cheque",
+  "address": { "@type": "PostalAddress", "addressCountry": "LB" },
+  "areaServed": [
+    { "@type": "AdministrativeArea", "name": "Akkar" },
+    { "@type": "AdministrativeArea", "name": "North Lebanon" },
+    { "@type": "City", "name": "Tripoli" },
+    { "@type": "City", "name": "Beirut" },
+    { "@type": "AdministrativeArea", "name": "Mount Lebanon" }
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "08:00", "closes": "17:00"
+  }],
+  "knowsLanguage": ["ar","en"],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "بيع مصاعد جديدة" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تركيب المصاعد" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "عقود صيانة المصاعد" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تصليح المصاعد والطوارئ" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تحديث المصاعد القديمة" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "قطع غيار المصاعد" } }
+  ]
+}
+</script>
+
+<!-- FAQ markup mirrors the visible FAQ section verbatim. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "هل معاينة الموقع مجانية؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "نعم. نزور الموقع، نأخذ قياسات البئر ونعاين المبنى، ثم نقدّم لك عرض سعر مكتوباً، من دون أي كلفة أو التزام." } },
+    { "@type": "Question", "name": "كم يستغرق التركيب؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "حوالي ثلاثة أشهر من تاريخ وصول المواد إلى الموقع، على أن يكون البئر جاهزاً قبل بدء العمل." } },
+    { "@type": "Question", "name": "كيف يتمّ الدفع؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "على ثلاث مراحل محدّدة في العقد: ٦٠٪ عند توقيع العقد، ٣٠٪ عند وصول المواد إلى الموقع، و١٠٪ عند التسليم. نقبل الدفع نقداً، أو عبر OMT وWhish، أو بشيك، بالدولار أو بالليرة." } },
+    { "@type": "Question", "name": "ما مدّة الكفالة؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "من سنة إلى ثلاث سنوات حسب نوع المصعد والعقد، وكل ما نتّفق عليه يُذكر في العقد بشكل واضح." } },
+    { "@type": "Question", "name": "هل يجب أن يكون بئر المصعد جاهزاً قبل التواصل معكم؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "لا. يمكنك التواصل معنا في أي مرحلة من البناء. إذا لم يكن البئر منفّذاً بعد، نزوّدك بالقياسات والمواصفات المطلوبة لتسليمها إلى المقاول، فتتجنّب أخطاء مكلفة لاحقاً." } },
+    { "@type": "Question", "name": "هل تقومون بصيانة مصاعد لم تركّبوها؟",
+      "acceptedAnswer": { "@type": "Answer", "text": "نعم، نقوم بصيانة جميع الماركات. ولأنّنا غير مرتبطين بأي شركة مصنّعة، نقدّم لك النصيحة الأنسب لمصعدك، وليس لمصلحة مصنع معيّن." } }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main" data-en="Skip to content" data-ar="الانتقال إلى المحتوى">الانتقال إلى المحتوى</a>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top">
+      <!-- Mark traced from the supplied logo artwork. Native ratio 258:515 —
+           it must not be forced into a square. Navy parts use currentColor. -->
+      <svg class="brand__mark" viewBox="0 0 258 515" role="img" aria-label="N.A.H">
+        <g fill="currentColor">
+          <rect x="0" y="62" width="35" height="410"/>
+          <rect x="223" y="62" width="35" height="410"/>
+          <path d="M100 0 L134 0 L134 132 L117 115 L100 132 Z"/>
+          <path d="M106 404 L123 422 L140 404 L140 515 L106 515 Z"/>
+          <path d="M125 391 L53 321 L53 280 L125 343 L198 280 L198 321 Z"/>
+        </g>
+        <path fill="#F36A22" d="M125 142 L53 209 L53 259 L125 191 L198 259 L198 209 Z"/>
+      </svg>
+      <span class="brand__txt">
+        <b>N.A.H</b>
+        <span data-en="Elevator Installation &amp; Maintenance" data-ar="تركيب وصيانة المصاعد">تركيب وصيانة المصاعد</span>
+      </span>
+    </a>
+
+    <!-- compact floor display for phones/tablets (the side rail needs ≥1280px) -->
+    <div class="liftchip" id="liftchip" aria-hidden="true">
+      <svg class="lift__arrow" viewBox="0 0 10 8"><path d="M0 0H10L5 8Z" fill="currentColor"/></svg>
+      <b class="liftchip__num">8</b>
+      <span class="liftchip__name">الرئيسية</span>
+    </div>
+
+    <nav class="navlinks" id="navlinks">
+      <a href="#services" data-en="Services"  data-ar="الخدمات">الخدمات</a>
+      <a href="#types"    data-en="Elevators" data-ar="المصاعد">المصاعد</a>
+      <a href="#projects" data-en="Projects"  data-ar="مشاريعنا">مشاريعنا</a>
+      <a href="#process"  data-en="Process"   data-ar="مراحل العمل">مراحل العمل</a>
+      <a href="#coverage" data-en="Coverage"  data-ar="مناطق العمل">مناطق العمل</a>
+      <a href="#faq"      data-en="FAQ"       data-ar="أسئلة شائعة">أسئلة شائعة</a>
+      <a href="#contact"  data-en="Contact"   data-ar="تواصل معنا">تواصل معنا</a>
+    </nav>
+
+    <div class="navcta">
+      <div class="langtog" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" aria-pressed="true">ع</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-solid" style="min-height:44px;padding:0 20px;font-size:14px" href="#quote"
+         data-en="Get a Quote" data-ar="اطلب عرض سعر">اطلب عرض سعر</a>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero" id="top" style="padding:0">
+  <svg class="hero__glyph" viewBox="0 0 258 515" fill="currentColor" aria-hidden="true">
+    <rect x="0" y="62" width="35" height="410"/>
+    <rect x="223" y="62" width="35" height="410"/>
+    <path d="M100 0 L134 0 L134 132 L117 115 L100 132 Z"/>
+    <path d="M106 404 L123 422 L140 404 L140 515 L106 515 Z"/>
+    <path d="M125 391 L53 321 L53 280 L125 343 L198 280 L198 321 Z"/>
+    <path d="M125 142 L53 209 L53 259 L125 191 L198 259 L198 209 Z"/>
+  </svg>
+
+  <div class="wrap hero__in">
+    <span class="hero__eyebrow" data-en="Lebanon · Working since 2016" data-ar="لبنان · منذ عام ٢٠١٦">لبنان · منذ عام ٢٠١٦</span>
+    <h1>
+      <span data-en="Elevators sold, installed and" data-ar="بيع وتركيب وصيانة المصاعد">بيع وتركيب وصيانة المصاعد</span>
+      <b data-en="maintained properly." data-ar="بأيدٍ أمينة.">بأيدٍ أمينة.</b>
+    </h1>
+    <p class="hero__sub"
+       data-en="Every brand, across Lebanon — from Akkar to Beirut. Free site survey, a written quote, and a team that answers the phone when a lift stops."
+       data-ar="لجميع الماركات وفي مختلف المناطق اللبنانية، من عكار إلى بيروت. معاينة مجانية للموقع، عرض سعر واضح ومكتوب، وفريق جاهز للتدخّل عند أي عطل.">
+      لجميع الماركات وفي مختلف المناطق اللبنانية، من عكار إلى بيروت. معاينة مجانية للموقع، عرض سعر واضح ومكتوب، وفريق جاهز للتدخّل عند أي عطل.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn-solid" href="#quote" data-en="Request a free survey" data-ar="اطلب معاينة مجانية">اطلب معاينة مجانية</a>
+      <a class="btn btn-out" href="https://wa.me/96176527121?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D9%85%D8%B5%D8%B9%D8%AF." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5a.6.6 0 0 0 0-.6L8.9 6.6c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 6.9 12a13.9 13.9 0 0 0 5.3 4.7c2.6 1 2.6.7 3.1.6a3.2 3.2 0 0 0 2-1.4 2.6 2.6 0 0 0 .2-1.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+        <span data-en="WhatsApp us" data-ar="راسلنا على واتساب">راسلنا على واتساب</span>
+      </a>
+    </div>
+    <p class="hero__note"
+       data-en="Free survey · Written quote · 1–3 year warranty · Payment in USD or LBP"
+       data-ar="معاينة مجانية · عرض سعر مكتوب · كفالة حتى ٣ سنوات · الدفع بالدولار أو بالليرة">
+      معاينة مجانية · عرض سعر مكتوب · كفالة حتى ٣ سنوات · الدفع بالدولار أو بالليرة</p>
+  </div>
+</section>
+
+<!-- ══════════════════ STATS BAND ══════════════════ -->
+<div class="strip">
+  <div class="wrap strip__in">
+    <div class="strip__i"><b data-count="78" data-suffix="+">0</b><span data-en="Elevators installed" data-ar="مصعداً تمّ تركيبه">مصعداً تمّ تركيبه</span></div>
+    <div class="strip__i"><b data-count="10">0</b><span data-en="Years of experience" data-ar="سنوات خبرة">سنوات خبرة</span></div>
+    <div class="strip__i"><b data-count="4">0</b><span data-en="Governorates served" data-ar="محافظات نخدمها">محافظات نخدمها</span></div>
+    <div class="strip__i"><b>EN 81</b><span data-en="European safety standard" data-ar="مواصفات السلامة الأوروبية">مواصفات السلامة الأوروبية</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════ SERVICES ══════════════════ -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Our services" data-ar="خدماتنا">خدماتنا</span>
+      <h2 data-en="Everything your elevator needs, under one roof" data-ar="كل ما يحتاجه مصعدك، تحت سقف واحد">كل ما يحتاجه مصعدك، تحت سقف واحد</h2>
+      <div class="rule"></div>
+      <p class="lede"
+         data-en="We supply the unit, carry out the installation, sign the maintenance contract and answer the call when something goes wrong. No hand-offs between contractors, and no subcontracted crews."
+         data-ar="من التوريد والتركيب إلى الصيانة الدورية والتصليح، فريق واحد يتابع مصعدك من البداية حتى النهاية، من دون وسطاء ولا مقاولين من الباطن.">
+        من التوريد والتركيب إلى الصيانة الدورية والتصليح، فريق واحد يتابع مصعدك من البداية حتى النهاية، من دون وسطاء ولا مقاولين من الباطن.</p>
+    </div>
+
+    <div class="cards">
+      <a class="card rev" href="#quote">
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="2" width="16" height="20"/><path d="M12 2v20M8 7l4-3 4 3M8 17l4 3 4-3"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="New elevator sales" data-ar="بيع مصاعد جديدة">بيع مصاعد جديدة</h3>
+          <p data-en="Any brand, any origin. We size the unit to the building and tell you honestly what it will cost to run."
+             data-ar="جميع الماركات والمناشئ. نختار لك المصعد الأنسب لمبناك، ونشرح لك كلفة تشغيله بكل وضوح.">جميع الماركات والمناشئ. نختار لك المصعد الأنسب لمبناك، ونشرح لك كلفة تشغيله بكل وضوح.</p>
+          <span class="more" data-en="Request a quote →" data-ar="اطلب عرض سعر ←">اطلب عرض سعر ←</span>
+        </div>
+      </a>
+
+      <a class="card rev" href="#quote">
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14.7 6.3a4 4 0 0 0 5 5L16 15l-3-3z"/><path d="m3 21 6.5-6.5"/><path d="m13 3 3 3-3 3"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="Installation" data-ar="التركيب">التركيب</h3>
+          <p data-en="From preparing the shaft and machine room to the controller and doors, through to commissioning and hand-over."
+             data-ar="من تجهيز البئر وغرفة المحرّك إلى لوحة التحكّم والأبواب، وصولاً إلى التشغيل والتسليم النهائي.">من تجهيز البئر وغرفة المحرّك إلى لوحة التحكّم والأبواب، وصولاً إلى التشغيل والتسليم النهائي.</p>
+          <span class="more" data-en="Request a quote →" data-ar="اطلب عرض سعر ←">اطلب عرض سعر ←</span>
+        </div>
+      </a>
+
+      <a class="card rev" href="#contact">
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="Routine maintenance" data-ar="الصيانة الدورية">الصيانة الدورية</h3>
+          <p data-en="Monthly or yearly contracts sized to the building and its use. Regular visits, and parts checked before they fail."
+             data-ar="عقود صيانة شهرية أو سنوية حسب حجم المبنى واستخدامه. زيارات منتظمة وفحص للقطع قبل أن تتعطّل.">عقود صيانة شهرية أو سنوية حسب حجم المبنى واستخدامه. زيارات منتظمة وفحص للقطع قبل أن تتعطّل.</p>
+          <span class="more" data-en="Talk to us →" data-ar="تواصل معنا ←">تواصل معنا ←</span>
+        </div>
+      </a>
+
+      <a class="card rev" href="#contact">
+        <!-- icon tile: no usable photograph exists for this service yet -->
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 9-12h-7z"/></svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="Repairs &amp; breakdowns" data-ar="التصليح والأعطال">التصليح والأعطال</h3>
+          <p data-en="Call-out service during working hours, with an on-call line for contracted buildings. Fault diagnosed on site, parts sourced fast."
+             data-ar="نستجيب لبلاغات الأعطال خلال ساعات العمل، مع خط طوارئ خاص بالأبنية المتعاقدة معنا. نشخّص العطل في الموقع ونؤمّن القطع بسرعة.">نستجيب لبلاغات الأعطال خلال ساعات العمل، مع خط طوارئ خاص بالأبنية المتعاقدة معنا. نشخّص العطل في الموقع ونؤمّن القطع بسرعة.</p>
+          <span class="more" data-en="Call us →" data-ar="اتصل بنا ←">اتصل بنا ←</span>
+        </div>
+      </a>
+
+      <a class="card rev" href="#quote">
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a9 9 0 0 1-15.3 6.4L3 16"/><path d="M3 12a9 9 0 0 1 15.3-6.4L21 8"/>
+            <path d="M3 21v-5h5M21 3v5h-5"/>
+          </svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="Modernisation" data-ar="تحديث المصاعد القديمة">تحديث المصاعد القديمة</h3>
+          <p data-en="We keep the shaft and renew what is worn: controller, machine, doors and cabin finish. Your old lift made new, for far less than a new one."
+             data-ar="نحافظ على البئر ونجدّد ما تلف: لوحة التحكّم، المحرّك، الأبواب وتلبيس الكابين. مصعدك القديم بحلّة جديدة، وبكلفة أقلّ بكثير من مصعد جديد.">نحافظ على البئر ونجدّد ما تلف: لوحة التحكّم، المحرّك، الأبواب وتلبيس الكابين. مصعدك القديم بحلّة جديدة، وبكلفة أقلّ بكثير من مصعد جديد.</p>
+          <span class="more" data-en="Request a quote →" data-ar="اطلب عرض سعر ←">اطلب عرض سعر ←</span>
+        </div>
+      </a>
+
+      <a class="card rev" href="#contact">
+        <div class="card__tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8l-9-5-9 5v8l9 5z"/><path d="m3.3 7.5 8.7 5 8.7-5M12 22V12.5"/></svg>
+        </div>
+        <div class="card__body">
+          <h3 data-en="Spare parts" data-ar="قطع الغيار">قطع الغيار</h3>
+          <p data-en="Controllers, door operators, ropes, buttons, safety gear. Common items in stock, the rest sourced for every brand on the market."
+             data-ar="لوحات تحكّم، محرّكات أبواب، حبال، أزرار وأنظمة أمان. القطع الأساسية متوفّرة لدينا، ونؤمّن الباقي لجميع الماركات.">لوحات تحكّم، محرّكات أبواب، حبال، أزرار وأنظمة أمان. القطع الأساسية متوفّرة لدينا، ونؤمّن الباقي لجميع الماركات.</p>
+          <span class="more" data-en="Ask about a part →" data-ar="استفسر عن قطعة ←">استفسر عن قطعة ←</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ TYPES — inverted navy ══════════════════ -->
+<section id="types" class="on-navy">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Elevator types" data-ar="أنواع المصاعد">أنواع المصاعد</span>
+      <h2 data-en="Every type of elevator" data-ar="جميع أنواع المصاعد">جميع أنواع المصاعد</h2>
+      <div class="rule"></div>
+      <p class="lede" data-en="Tell us the building and the traffic it carries; we will tell you which of these is right and what it takes to install."
+         data-ar="أخبرنا عن مبناك وطبيعة استخدامه، ونقترح عليك النوع المناسب ومتطلبات تركيبه.">أخبرنا عن مبناك وطبيعة استخدامه، ونقترح عليك النوع المناسب ومتطلبات تركيبه.</p>
+    </div>
+
+    <div class="types rev">
+      <div class="type"><span class="type__n">01</span><h3 data-en="Passenger" data-ar="مصاعد الركاب">مصاعد الركاب</h3><p data-en="Residential and commercial buildings" data-ar="للأبنية السكنية والتجارية">للأبنية السكنية والتجارية</p></div>
+      <div class="type"><span class="type__n">02</span><h3 data-en="Home &amp; villa" data-ar="مصاعد المنازل والفلل">مصاعد المنازل والفلل</h3><p data-en="Compact and quiet, no deep pit needed" data-ar="صغيرة الحجم وهادئة، ولا تحتاج حفرة عميقة">صغيرة الحجم وهادئة، ولا تحتاج حفرة عميقة</p></div>
+      <div class="type"><span class="type__n">03</span><h3 data-en="Freight elevators" data-ar="مصاعد الشحن">مصاعد الشحن</h3><p data-en="Warehouses, factories, retail" data-ar="للمستودعات والمصانع والمحلات التجارية">للمستودعات والمصانع والمحلات التجارية</p></div>
+      <div class="type"><span class="type__n">04</span><h3 data-en="Car elevators" data-ar="مصاعد السيارات">مصاعد السيارات</h3><p data-en="Underground and multi-level parking" data-ar="لمواقف السيارات في الطوابق السفلية">لمواقف السيارات في الطوابق السفلية</p></div>
+      <div class="type"><span class="type__n">05</span><h3 data-en="Hospital" data-ar="مصاعد المستشفيات">مصاعد المستشفيات</h3><p data-en="Bed and stretcher size, smooth precise stops" data-ar="تتّسع للأسرّة والنقّالات، مع توقّف سلس ودقيق">تتّسع للأسرّة والنقّالات، مع توقّف سلس ودقيق</p></div>
+      <div class="type"><span class="type__n">06</span><h3 data-en="Escalators" data-ar="السلالم الكهربائية">السلالم الكهربائية</h3><p data-en="Malls, showrooms, public halls" data-ar="للمراكز التجارية وصالات العرض">للمراكز التجارية وصالات العرض</p></div>
+      <div class="type"><span class="type__n">07</span><h3 data-en="Accessibility" data-ar="لذوي الاحتياجات الخاصة">لذوي الاحتياجات الخاصة</h3><p data-en="Platform and wheelchair-rated units" data-ar="منصّات ومصاعد مخصّصة للكراسي المتحرّكة">منصّات ومصاعد مخصّصة للكراسي المتحرّكة</p></div>
+      <div class="type"><span class="type__n">08</span><h3 data-en="Safety systems" data-ar="أنظمة الأمان">أنظمة الأمان</h3><p data-en="Door sensors, automatic rescue on power cuts, overload protection" data-ar="حسّاسات أبواب، إنزال تلقائي عند انقطاع الكهرباء، وحماية من الحمولة الزائدة">حسّاسات أبواب، إنزال تلقائي عند انقطاع الكهرباء، وحماية من الحمولة الزائدة</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PROJECTS ══════════════════ -->
+<section id="projects" class="on-ice">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Projects" data-ar="مشاريعنا">مشاريعنا</span>
+      <h2 data-en="78 elevators, Akkar to Beirut" data-ar="٧٨ مصعداً، من عكار حتى بيروت">٧٨ مصعداً، من عكار حتى بيروت</h2>
+      <div class="rule"></div>
+      <p class="lede" data-en="Residential buildings, private villas, hotels, hospitals and industrial sites — across four regions since 2016. Named references, photographs and full specifications are sent on request, once the building owner gives permission."
+         data-ar="مبانٍ سكنية، فلل، فنادق، مستشفيات ومصانع في أربع محافظات منذ عام ٢٠١٦. نزوّدك بالمراجع والصور والمواصفات عند الطلب، بعد موافقة أصحاب المباني.">
+        مبانٍ سكنية، فلل، فنادق، مستشفيات ومصانع في أربع محافظات منذ عام ٢٠١٦. نزوّدك بالمراجع والصور والمواصفات عند الطلب، بعد موافقة أصحاب المباني.</p>
+    </div>
+
+    <!-- No photographs here on purpose: the only images available were low-resolution
+         stock, and showing stock work beside a "78 elevators we installed" claim is
+         not something this page should do. Real project photography drops straight
+         into this slot when the client supplies it. -->
+    <div class="work rev">
+      <div class="work__item"><span class="type__n">01</span><h3 data-en="Residential buildings" data-ar="مبانٍ سكنية">مبانٍ سكنية</h3><p data-en="Passenger lifts, 4 to 10 floors" data-ar="مصاعد ركّاب من ٤ إلى ١٠ طوابق">مصاعد ركّاب من ٤ إلى ١٠ طوابق</p></div>
+      <div class="work__item"><span class="type__n">02</span><h3 data-en="Villas &amp; private homes" data-ar="فلل ومنازل">فلل ومنازل</h3><p data-en="Compact home lifts" data-ar="مصاعد منزلية صغيرة الحجم">مصاعد منزلية صغيرة الحجم</p></div>
+      <div class="work__item"><span class="type__n">03</span><h3 data-en="Hotels &amp; hospitals" data-ar="فنادق ومستشفيات">فنادق ومستشفيات</h3><p data-en="Heavy use, bed-size cabins" data-ar="استخدام مكثّف وكابينات تتّسع للأسرّة">استخدام مكثّف وكابينات تتّسع للأسرّة</p></div>
+      <div class="work__item"><span class="type__n">04</span><h3 data-en="Factories &amp; warehouses" data-ar="مصانع ومستودعات">مصانع ومستودعات</h3><p data-en="Freight lifts for heavy loads" data-ar="مصاعد شحن بحمولات عالية">مصاعد شحن بحمولات عالية</p></div>
+    </div>
+
+    <div class="work__cta rev">
+      <p data-en="Want to see our work? We will send photos of finished projects similar to your building."
+         data-ar="هل تودّ الاطّلاع على أعمالنا؟ نرسل لك صوراً لمشاريع منفّذة مشابهة لمبناك.">هل تودّ الاطّلاع على أعمالنا؟ نرسل لك صوراً لمشاريع منفّذة مشابهة لمبناك.</p>
+      <a class="btn btn-navy" href="https://wa.me/96176527121?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B5%D9%88%D8%B1%20%D9%84%D8%A3%D8%B9%D9%85%D8%A7%D9%84%D9%83%D9%85%20%D8%A7%D9%84%D8%B3%D8%A7%D8%A8%D9%82%D8%A9." target="_blank" rel="noopener"
+         data-en="Ask for project photos on WhatsApp" data-ar="اطلب صور المشاريع عبر واتساب">اطلب صور المشاريع عبر واتساب</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PROCESS ══════════════════ -->
+<section id="process" class="on-ice">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="How it works" data-ar="آلية العمل">آلية العمل</span>
+      <h2 data-en="From first call to a lift that runs" data-ar="من الاتصال الأول حتى تشغيل المصعد">من الاتصال الأول حتى تشغيل المصعد</h2>
+      <div class="rule"></div>
+      <p class="lede" data-en="Six clear steps. The survey costs nothing, and installation typically completes within three months of the material landing on site."
+         data-ar="ستّ مراحل واضحة. المعاينة مجانية، ويُنجَز التركيب عادةً خلال ثلاثة أشهر من وصول المواد إلى الموقع.">
+        ستّ مراحل واضحة. المعاينة مجانية، ويُنجَز التركيب عادةً خلال ثلاثة أشهر من وصول المواد إلى الموقع.</p>
+    </div>
+
+    <!-- Connected timeline. --p (0–1) is driven by scroll in main.js and
+         fills the orange line; steps reached get .is-done. Logical
+         properties make the line run right-to-left in Arabic. -->
+    <ol class="tl rev" id="timeline">
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">1</span>
+        <div class="tl__card">
+          <h3 data-en="Site visit" data-ar="معاينة الموقع">معاينة الموقع</h3>
+          <p data-en="Free survey of the shaft and building" data-ar="قياس البئر ومعاينة المبنى">قياس البئر ومعاينة المبنى</p>
+          <span class="tl__tag tl__tag--free" data-en="Free" data-ar="مجاني">مجاني</span>
+        </div>
+      </li>
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">2</span>
+        <div class="tl__card">
+          <h3 data-en="Quotation" data-ar="عرض السعر">عرض السعر</h3>
+          <p data-en="Itemised and in writing, USD or LBP" data-ar="مفصّل ومكتوب، بالدولار أو بالليرة">مفصّل ومكتوب، بالدولار أو بالليرة</p>
+        </div>
+      </li>
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">3</span>
+        <div class="tl__card">
+          <h3 data-en="Signing" data-ar="توقيع العقد">توقيع العقد</h3>
+          <p data-en="Scope, warranty and schedule agreed" data-ar="تحديد الأعمال والكفالة ومدّة التنفيذ">تحديد الأعمال والكفالة ومدّة التنفيذ</p>
+        </div>
+      </li>
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">4</span>
+        <div class="tl__card">
+          <h3 data-en="First payment" data-ar="الدفعة الأولى">الدفعة الأولى</h3>
+          <p data-en="On signing, to order the lift" data-ar="عند توقيع العقد وطلب المصعد">عند توقيع العقد وطلب المصعد</p>
+          <span class="tl__tag" data-en="60%" data-ar="٦٠٪">٦٠٪</span>
+        </div>
+      </li>
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">5</span>
+        <div class="tl__card">
+          <h3 data-en="Delivery" data-ar="وصول المواد">وصول المواد</h3>
+          <p data-en="Material arrives on site" data-ar="تسليم المعدّات إلى الموقع">تسليم المعدّات إلى الموقع</p>
+          <span class="tl__tag" data-en="30%" data-ar="٣٠٪">٣٠٪</span>
+        </div>
+      </li>
+      <li class="tl__step">
+        <span class="tl__dot" aria-hidden="true">6</span>
+        <div class="tl__card">
+          <h3 data-en="Installation" data-ar="التركيب">التركيب</h3>
+          <p data-en="Commissioning and hand-over" data-ar="تشغيل المصعد وتسليمه">تشغيل المصعد وتسليمه</p>
+          <span class="tl__tag" data-en="10%" data-ar="١٠٪">١٠٪</span>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════════ COVERAGE + MAP ══════════════════ -->
+<section id="coverage">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Coverage &amp; clients" data-ar="مناطق العمل وزبائننا">مناطق العمل وزبائننا</span>
+      <h2 data-en="Wherever you are — Akkar to Mount Lebanon" data-ar="نصل إليك أينما كنت — من عكار إلى جبل لبنان">نصل إليك أينما كنت — من عكار إلى جبل لبنان</h2>
+      <div class="rule"></div>
+    </div>
+
+    <div class="cover">
+      <div class="panel rev">
+        <h3 data-en="Our clients" data-ar="زبائننا">زبائننا</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Building owners" data-ar="مالكو الأبنية">مالكو الأبنية</b> — <span data-en="new installs and maintenance contracts" data-ar="تركيب مصاعد جديدة وعقود صيانة">تركيب مصاعد جديدة وعقود صيانة</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Contractors &amp; developers" data-ar="المقاولون والمطوّرون العقاريون">المقاولون والمطوّرون العقاريون</b> — <span data-en="coordinated with the build programme" data-ar="بالتنسيق الكامل مع مراحل البناء">بالتنسيق الكامل مع مراحل البناء</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Homeowners &amp; villas" data-ar="أصحاب المنازل والفلل">أصحاب المنازل والفلل</b> — <span data-en="compact home lifts, discreet installs" data-ar="مصاعد منزلية بتركيب نظيف وسريع">مصاعد منزلية بتركيب نظيف وسريع</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Hotels" data-ar="الفنادق">الفنادق</b> — <span data-en="guest and service lifts, high duty cycles" data-ar="مصاعد للنزلاء والخدمة تعمل طوال اليوم">مصاعد للنزلاء والخدمة تعمل طوال اليوم</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Hospitals" data-ar="المستشفيات">المستشفيات</b> — <span data-en="stretcher-rated cabins, precise levelling" data-ar="كابينات تتّسع للأسرّة مع توقّف دقيق">كابينات تتّسع للأسرّة مع توقّف دقيق</span></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b data-en="Factories &amp; warehouses" data-ar="المصانع والمستودعات">المصانع والمستودعات</b> — <span data-en="Freight lifts for heavy loads" data-ar="مصاعد شحن بحمولات عالية">مصاعد شحن بحمولات عالية</span></span></li>
+        </ul>
+
+        <div class="terms">
+          <div class="term"><b>60/30/10</b><span data-en="Staged payment" data-ar="دفع على ثلاث مراحل">دفع على ثلاث مراحل</span></div>
+          <div class="term"><b data-en="3 months" data-ar="٣ أشهر">٣ أشهر</b><span data-en="Typical install" data-ar="مدة التركيب">مدة التركيب</span></div>
+          <div class="term"><b data-en="1–3 yrs" data-ar="١–٣ سنوات">١–٣ سنوات</b><span data-en="Warranty" data-ar="الكفالة">الكفالة</span></div>
+        </div>
+
+        <div class="seal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 4 6v6c0 5 3.4 9.1 8 10 4.6-.9 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/>
+          </svg>
+          <div>
+            <b data-en="Installed to EN 81" data-ar="مطابقة لمواصفات EN 81">مطابقة لمواصفات EN 81</b>
+            <p data-en="The European lift safety standard — written into every contract we sign."
+               data-ar="مواصفات السلامة الأوروبية للمصاعد، ومذكورة في كل عقد نوقّعه.">مواصفات السلامة الأوروبية للمصاعد، ومذكورة في كل عقد نوقّعه.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stylised coverage map. Decorative — city positions are indicative. -->
+      <div class="map rev">
+        <!-- Real map, dark-tiled, with a pin on each coverage area.
+             If Leaflet or the tiles fail to load (offline, blocked CDN) the
+             area chips below still carry the information on their own. -->
+        <div class="map__frame" id="mapCanvas"
+             role="img" aria-label="خريطة مناطق عملنا في لبنان: عكار، طرابلس والشمال، بيروت، جبل لبنان"></div>
+        <ul class="map__areas">
+          <li data-en="Akkar" data-ar="عكار">عكار</li>
+          <li data-en="Tripoli &amp; the North" data-ar="طرابلس والشمال">طرابلس والشمال</li>
+          <li data-en="Beirut" data-ar="بيروت">بيروت</li>
+          <li data-en="Mount Lebanon" data-ar="جبل لبنان">جبل لبنان</li>
+        </ul>
+        <p class="map__key"
+           data-en="Free survey anywhere on this map. Projects outside Lebanon on request."
+           data-ar="معاينة مجانية في جميع هذه المناطق، ومشاريع خارج لبنان عند الطلب.">معاينة مجانية في جميع هذه المناطق، ومشاريع خارج لبنان عند الطلب.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FAQ ══════════════════ -->
+<section id="faq" class="on-ice">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Before you ask" data-ar="أسئلة شائعة">أسئلة شائعة</span>
+      <h2 data-en="Answers to the questions we hear most" data-ar="أجوبة على أكثر الأسئلة تكراراً">أجوبة على أكثر الأسئلة تكراراً</h2>
+      <div class="rule"></div>
+    </div>
+
+    <!-- Plain cards, every answer visible. An accordion hid the content
+         behind six clicks and read as an empty band; this also means the
+         answers are in the page for search engines without JS. -->
+    <div class="faqs rev">
+      <article class="faq">
+        <span class="faq__n">01</span>
+        <h3 class="faq__q" data-en="Is the site survey really free?" data-ar="هل معاينة الموقع مجانية؟">هل معاينة الموقع مجانية؟</h3>
+        <p class="faq__a" data-en="Yes. We come, measure the shaft, look at the building, and give you a written quote — at no cost and with no obligation." data-ar="نعم. نزور الموقع، نأخذ قياسات البئر ونعاين المبنى، ثم نقدّم لك عرض سعر مكتوباً، من دون أي كلفة أو التزام.">نعم. نزور الموقع، نأخذ قياسات البئر ونعاين المبنى، ثم نقدّم لك عرض سعر مكتوباً، من دون أي كلفة أو التزام.</p>
+      </article>
+      <article class="faq">
+        <span class="faq__n">02</span>
+        <h3 class="faq__q" data-en="How long does installation take?" data-ar="كم يستغرق التركيب؟">كم يستغرق التركيب؟</h3>
+        <p class="faq__a" data-en="About three months from the date the material arrives on site. The shaft must be ready before we begin." data-ar="حوالي ثلاثة أشهر من تاريخ وصول المواد إلى الموقع، على أن يكون البئر جاهزاً قبل بدء العمل.">حوالي ثلاثة أشهر من تاريخ وصول المواد إلى الموقع، على أن يكون البئر جاهزاً قبل بدء العمل.</p>
+      </article>
+      <article class="faq">
+        <span class="faq__n">03</span>
+        <h3 class="faq__q" data-en="How is payment structured?" data-ar="كيف يتمّ الدفع؟">كيف يتمّ الدفع؟</h3>
+        <p class="faq__a" data-en="In three stages set out in the contract: 60% on signing, 30% when the material reaches the site, and 10% on hand-over. Cash, OMT, Whish or cheque, in USD or LBP." data-ar="على ثلاث مراحل محدّدة في العقد: ٦٠٪ عند توقيع العقد، ٣٠٪ عند وصول المواد إلى الموقع، و١٠٪ عند التسليم. نقبل الدفع نقداً، أو عبر OMT وWhish، أو بشيك، بالدولار أو بالليرة.">على ثلاث مراحل محدّدة في العقد: ٦٠٪ عند توقيع العقد، ٣٠٪ عند وصول المواد إلى الموقع، و١٠٪ عند التسليم. نقبل الدفع نقداً، أو عبر OMT وWhish، أو بشيك، بالدولار أو بالليرة.</p>
+      </article>
+      <article class="faq">
+        <span class="faq__n">04</span>
+        <h3 class="faq__q" data-en="What warranty do I get?" data-ar="ما مدّة الكفالة؟">ما مدّة الكفالة؟</h3>
+        <p class="faq__a" data-en="Between one and three years depending on the unit and the contract. Whatever we agree is written into the contract — never a verbal promise." data-ar="من سنة إلى ثلاث سنوات حسب نوع المصعد والعقد، وكل ما نتّفق عليه يُذكر في العقد بشكل واضح.">من سنة إلى ثلاث سنوات حسب نوع المصعد والعقد، وكل ما نتّفق عليه يُذكر في العقد بشكل واضح.</p>
+      </article>
+      <article class="faq">
+        <span class="faq__n">05</span>
+        <h3 class="faq__q" data-en="Does the shaft need to be built before I contact you?" data-ar="هل يجب أن يكون بئر المصعد جاهزاً قبل التواصل معكم؟">هل يجب أن يكون بئر المصعد جاهزاً قبل التواصل معكم؟</h3>
+        <p class="faq__a" data-en="Not to get a quote — come to us at any stage. If the shaft is not built yet we will give you the exact dimensions and requirements to pass to your contractor, which avoids expensive mistakes." data-ar="لا. يمكنك التواصل معنا في أي مرحلة من البناء. إذا لم يكن البئر منفّذاً بعد، نزوّدك بالقياسات والمواصفات المطلوبة لتسليمها إلى المقاول، فتتجنّب أخطاء مكلفة لاحقاً.">لا. يمكنك التواصل معنا في أي مرحلة من البناء. إذا لم يكن البئر منفّذاً بعد، نزوّدك بالقياسات والمواصفات المطلوبة لتسليمها إلى المقاول، فتتجنّب أخطاء مكلفة لاحقاً.</p>
+      </article>
+      <article class="faq">
+        <span class="faq__n">06</span>
+        <h3 class="faq__q" data-en="Do you maintain lifts you did not install?" data-ar="هل تقومون بصيانة مصاعد لم تركّبوها؟">هل تقومون بصيانة مصاعد لم تركّبوها؟</h3>
+        <p class="faq__a" data-en="Yes — all brands. We are not tied to any manufacturer, so the recommendation you get is ours, not a factory’s." data-ar="نعم، نقوم بصيانة جميع الماركات. ولأنّنا غير مرتبطين بأي شركة مصنّعة، نقدّم لك النصيحة الأنسب لمصعدك، وليس لمصلحة مصنع معيّن.">نعم، نقوم بصيانة جميع الماركات. ولأنّنا غير مرتبطين بأي شركة مصنّعة، نقدّم لك النصيحة الأنسب لمصعدك، وليس لمصلحة مصنع معيّن.</p>
+      </article>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ QUOTE ══════════════════ -->
+<section id="quote" class="on-deep">
+  <div class="wrap quote__in">
+    <div class="rev">
+      <span class="kicker" data-en="Free, no obligation" data-ar="مجاناً ومن دون التزام">مجاناً ومن دون التزام</span>
+      <h2 data-en="Tell us about your project" data-ar="أخبرنا عن مشروعك">أخبرنا عن مشروعك</h2>
+      <div class="rule"></div>
+      <p class="lede"
+         data-en="Fill in what you know — the rest we confirm on the site visit. Your details open a pre-filled WhatsApp message to our team. Nothing is paid or committed online."
+         data-ar="املأ ما تعرفه من معلومات، ونستكمل الباقي خلال المعاينة. عند الإرسال تُفتح رسالة واتساب جاهزة إلى فريقنا، من دون أي دفع أو التزام.">
+        املأ ما تعرفه من معلومات، ونستكمل الباقي خلال المعاينة. عند الإرسال تُفتح رسالة واتساب جاهزة إلى فريقنا، من دون أي دفع أو التزام.</p>
+
+      <div class="panel" style="margin-top:28px">
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-en="Site survey at no cost, anywhere we cover" data-ar="معاينة مجانية في جميع مناطق عملنا">معاينة مجانية في جميع مناطق عملنا</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-en="A written, itemised quote — not a number over the phone" data-ar="عرض سعر مكتوب ومفصّل، وليس مجرّد رقم على الهاتف">عرض سعر مكتوب ومفصّل، وليس مجرّد رقم على الهاتف</span></li>
+          <li style="border-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-en="Warranty from 1 to 3 years, stated in the contract" data-ar="كفالة من سنة إلى ٣ سنوات مذكورة في العقد">كفالة من سنة إلى ٣ سنوات مذكورة في العقد</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="form rev" id="quoteForm" novalidate>
+      <h3 data-en="Request a quote" data-ar="اطلب عرض سعر">اطلب عرض سعر</h3>
+      <p class="form__lead" data-en="Fields marked * are required." data-ar="الحقول المشار إليها بـ * إلزامية.">الحقول المشار إليها بـ * إلزامية.</p>
+
+      <div class="frow">
+        <div class="field">
+          <label for="q-name" data-en="Full name *" data-ar="الاسم الكامل *">الاسم الكامل *</label>
+          <input id="q-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="q-phone" data-en="Phone / WhatsApp *" data-ar="رقم الهاتف / واتساب *">رقم الهاتف / واتساب *</label>
+          <input id="q-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" dir="ltr" placeholder="03 000 000" />
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="field">
+          <label for="q-area" data-en="Area *" data-ar="المنطقة *">المنطقة *</label>
+          <input id="q-area" name="area" type="text" required placeholder="طرابلس، عكار، بيروت…" />
+        </div>
+        <div class="field">
+          <label for="q-building" data-en="Building type" data-ar="نوع المبنى">نوع المبنى</label>
+          <select id="q-building" name="building">
+            <option data-en="Residential building" data-ar="مبنى سكني">مبنى سكني</option>
+            <option data-en="Villa / private home" data-ar="فيلا / منزل خاص">فيلا / منزل خاص</option>
+            <option data-en="Hotel" data-ar="فندق">فندق</option>
+            <option data-en="Hospital / clinic" data-ar="مستشفى / عيادة">مستشفى / عيادة</option>
+            <option data-en="Factory / warehouse" data-ar="مصنع / مستودع">مصنع / مستودع</option>
+            <option data-en="Commercial / retail" data-ar="تجاري / محلات">تجاري / محلات</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="field">
+          <label for="q-floors" data-en="Number of floors" data-ar="عدد الطوابق">عدد الطوابق</label>
+          <input id="q-floors" name="floors" type="number" min="1" max="60" placeholder="6" />
+        </div>
+        <div class="field">
+          <label for="q-capacity" data-en="Persons / load" data-ar="عدد الركّاب أو الحمولة">عدد الركّاب أو الحمولة</label>
+          <input id="q-capacity" name="capacity" type="text" placeholder="٦ أشخاص / ٤٥٠ كغ" />
+        </div>
+      </div>
+
+      <div class="frow">
+        <div class="field">
+          <label for="q-use" data-en="Use" data-ar="نوع الاستخدام">نوع الاستخدام</label>
+          <select id="q-use" name="use">
+            <option data-en="Passenger" data-ar="ركاب">ركاب</option>
+            <option data-en="Freight" data-ar="شحن">شحن</option>
+            <option data-en="Car" data-ar="سيارات">سيارات</option>
+            <option data-en="Accessibility platform" data-ar="منصة لذوي الاحتياجات الخاصة">منصة لذوي الاحتياجات الخاصة</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-shaft" data-en="Is there a shaft?" data-ar="هل يوجد بئر للمصعد؟">هل يوجد بئر للمصعد؟</label>
+          <select id="q-shaft" name="shaft">
+            <option data-en="Yes, already built" data-ar="نعم، جاهز">نعم، جاهز</option>
+            <option data-en="No, not yet" data-ar="لا، ليس بعد">لا، ليس بعد</option>
+            <option data-en="Not sure" data-ar="غير متأكد">غير متأكد</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="q-notes" data-en="Anything else (existing lift, brand, timing…)" data-ar="ملاحظات إضافية (مصعد موجود، الماركة، موعد التنفيذ…)">ملاحظات إضافية (مصعد موجود، الماركة، موعد التنفيذ…)</label>
+        <textarea id="q-notes" name="notes"></textarea>
+      </div>
+
+      <p class="err" id="q-err" role="alert" aria-live="assertive" hidden></p>
+
+      <button class="btn btn-wa" type="submit">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5a.6.6 0 0 0 0-.6L8.9 6.6c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 6.9 12a13.9 13.9 0 0 0 5.3 4.7c2.6 1 2.6.7 3.1.6a3.2 3.2 0 0 0 2-1.4 2.6 2.6 0 0 0 .2-1.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+        <span data-en="Send on WhatsApp" data-ar="أرسل عبر واتساب">أرسل عبر واتساب</span>
+      </button>
+      <a class="btn btn-line" id="mailFallback" href="mailto:khalidinazir21@gmail.com" style="width:100%;margin-top:12px">
+        <span data-en="Or send by email" data-ar="أو أرسل عبر البريد الإلكتروني">أو أرسل عبر البريد الإلكتروني</span>
+      </a>
+      <p class="fnote" data-en="We reply during working hours, 8:00 – 17:00." data-ar="نردّ على الطلبات خلال ساعات العمل، من ٨ صباحاً حتى ٥ مساءً.">نردّ على الطلبات خلال ساعات العمل، من ٨ صباحاً حتى ٥ مساءً.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head center rev">
+      <span class="kicker" data-en="Contact us" data-ar="تواصل معنا">تواصل معنا</span>
+      <h2 data-en="Reach us directly" data-ar="تواصل معنا مباشرة">تواصل معنا مباشرة</h2>
+      <div class="rule"></div>
+      <p class="lede" data-en="A real person answers. For a breakdown, call — do not wait for email."
+         data-ar="فريقنا يردّ عليك مباشرةً. وفي حال تعطّل المصعد، اتصل بنا هاتفياً ولا تنتظر الردّ على البريد الإلكتروني.">فريقنا يردّ عليك مباشرةً. وفي حال تعطّل المصعد، اتصل بنا هاتفياً ولا تنتظر الردّ على البريد الإلكتروني.</p>
+    </div>
+
+    <div class="cgrid rev">
+      <a class="ccard" href="https://wa.me/96176527121" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5a.6.6 0 0 0 0-.6L8.9 6.6c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 6.9 12a13.9 13.9 0 0 0 5.3 4.7c2.6 1 2.6.7 3.1.6a3.2 3.2 0 0 0 2-1.4 2.6 2.6 0 0 0 .2-1.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+        <span data-en="WhatsApp" data-ar="واتساب">واتساب</span><b dir="ltr">+961 76 527 121</b>
+      </a>
+      <a class="ccard" href="tel:+96103426522">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        <span data-en="Call us" data-ar="اتصل بنا">اتصل بنا</span><b dir="ltr">+961 03 426 522</b>
+      </a>
+      <a class="ccard" href="mailto:khalidinazir21@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16"/><path d="m2 7 10 6 10-6"/></svg>
+        <span data-en="Email" data-ar="البريد الإلكتروني">البريد الإلكتروني</span><b>khalidinazir21@gmail.com</b>
+      </a>
+      <div class="ccard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span data-en="Working hours" data-ar="ساعات العمل">ساعات العمل</span>
+        <b data-en="Mon – Sat · 8:00 – 17:00" data-ar="الإثنين – السبت · ٨ ص – ٥ م">الإثنين – السبت · ٨ ص – ٥ م</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <a class="brand" href="#top">
+          <svg class="brand__mark" viewBox="0 0 258 515" role="img" aria-label="N.A.H">
+            <g fill="currentColor">
+              <rect x="0" y="62" width="35" height="410"/>
+              <rect x="223" y="62" width="35" height="410"/>
+              <path d="M100 0 L134 0 L134 132 L117 115 L100 132 Z"/>
+              <path d="M106 404 L123 422 L140 404 L140 515 L106 515 Z"/>
+              <path d="M125 391 L53 321 L53 280 L125 343 L198 280 L198 321 Z"/>
+            </g>
+            <path fill="#F36A22" d="M125 142 L53 209 L53 259 L125 191 L198 259 L198 209 Z"/>
+          </svg>
+          <span class="brand__txt"><b>N.A.H</b><span data-en="Elevators · Lebanon" data-ar="مصاعد · لبنان">مصاعد · لبنان</span></span>
+        </a>
+        <p class="blurb" data-en="Sale, installation and maintenance for elevators of all brands in Lebanon. Working since 2016, from Akkar to Beirut."
+           data-ar="بيع وتركيب وصيانة المصاعد لجميع الماركات في لبنان، منذ عام ٢٠١٦ ومن عكار إلى بيروت.">
+          بيع وتركيب وصيانة المصاعد لجميع الماركات في لبنان، منذ عام ٢٠١٦ ومن عكار إلى بيروت.</p>
+      </div>
+      <div>
+        <h3 data-en="Services" data-ar="الخدمات">الخدمات</h3>
+        <a href="#services" data-en="New elevators" data-ar="مصاعد جديدة">مصاعد جديدة</a>
+        <a href="#services" data-en="Installation" data-ar="التركيب">التركيب</a>
+        <a href="#services" data-en="Maintenance" data-ar="الصيانة">الصيانة</a>
+        <a href="#services" data-en="Modernisation" data-ar="تحديث المصاعد">تحديث المصاعد</a>
+      </div>
+      <div>
+        <h3 data-en="Elevators" data-ar="المصاعد">المصاعد</h3>
+        <a href="#types" data-en="Passenger" data-ar="ركاب">ركاب</a>
+        <a href="#types" data-en="Home &amp; villa" data-ar="منازل وفلل">منازل وفلل</a>
+        <a href="#types" data-en="Freight &amp; car" data-ar="شحن وسيارات">شحن وسيارات</a>
+        <a href="#types" data-en="Escalators" data-ar="سلالم كهربائية">سلالم كهربائية</a>
+      </div>
+      <div>
+        <h3 data-en="Company" data-ar="الشركة">الشركة</h3>
+        <a href="#projects" data-en="Projects" data-ar="مشاريعنا">مشاريعنا</a>
+        <a href="#coverage" data-en="Coverage" data-ar="مناطق العمل">مناطق العمل</a>
+        <a href="#faq" data-en="FAQ" data-ar="أسئلة شائعة">أسئلة شائعة</a>
+        <a href="#quote" data-en="Request a quote" data-ar="اطلب عرض سعر">اطلب عرض سعر</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© <span id="year">2026</span> N.A.H — <span data-en="Elevator Installation &amp; Maintenance" data-ar="تركيب وصيانة المصاعد">تركيب وصيانة المصاعد</span></span>
+      <span data-en="Lebanon · Akkar — Tripoli — Beirut — Mount Lebanon" data-ar="لبنان · عكار — طرابلس — بيروت — جبل لبنان">لبنان · عكار — طرابلس — بيروت — جبل لبنان</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════ ELEVATOR FLOOR INDICATOR ══════════════════
+     The page is a building: the hero is the top floor and Contact is the
+     ground floor. Scrolling down rides the cab down the shaft, the display
+     counts the floors, and the doors open when the visitor stops. Each stop
+     links to its section. Stops are built by main.js. -->
+<nav class="lift" id="lift" aria-label="الطوابق">
+  <div class="lift__display" aria-hidden="true">
+    <svg class="lift__arrow" viewBox="0 0 10 8"><path d="M0 0H10L5 8Z" fill="currentColor"/></svg>
+    <b class="lift__num">8</b>
+  </div>
+  <div class="lift__shaft">
+    <div class="lift__machine" aria-hidden="true"><span class="lift__motor"></span><span class="lift__pulley"></span></div>
+    <span class="lift__rail lift__rail--l" aria-hidden="true"></span>
+    <span class="lift__rail lift__rail--r" aria-hidden="true"></span>
+    <span class="lift__cable lift__cable--cab" aria-hidden="true"></span>
+    <span class="lift__cable lift__cable--cw" aria-hidden="true"></span>
+    <span class="lift__cw" aria-hidden="true"></span>
+    <ol class="lift__stops"></ol>
+    <span class="lift__cab" aria-hidden="true"><span class="lift__car"><i></i><i></i></span></span>
+    <span class="lift__toast" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<a class="fab" href="https://wa.me/96176527121?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B9%D8%B1%D8%B6%20%D8%B3%D8%B9%D8%B1%20%D9%84%D9%85%D8%B5%D8%B9%D8%AF." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.8-.9-2-1s-.5-.2-.7.1-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5a.6.6 0 0 0 0-.6L8.9 6.6c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 6.9 12a13.9 13.9 0 0 0 5.3 4.7c2.6 1 2.6.7 3.1.6a3.2 3.2 0 0 0 2-1.4 2.6 2.6 0 0 0 .2-1.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+        integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

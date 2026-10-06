@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="N.A.H">
+  <!-- Favicon build of the N.A.H mark.
+       The full lockup is unreadable at 16px, so this keeps only what survives
+       at that size: the two hoistway rails and the chevron pair, thickened and
+       set on the brand navy so it reads as a solid tile in the tab strip. -->
+  <rect width="64" height="64" rx="10" fill="#0A243F"/>
+
+  <!-- hoistway rails -->
+  <rect x="5"  y="8" width="6" height="48" fill="#FFFFFF"/>
+  <rect x="53" y="8" width="6" height="48" fill="#FFFFFF"/>
+
+  <!-- chevron rising -->
+  <path fill="#F36A22" d="M32 11 L17 25 L17 31 L32 17 L47 31 L47 25 Z"/>
+  <!-- chevron descending -->
+  <path fill="#FFFFFF" d="M32 53 L17 39 L17 33 L32 47 L47 33 L47 39 Z"/>
+</svg>

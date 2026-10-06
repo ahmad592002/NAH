@@ -1,0 +1,6 @@
+# N.A.H — allow everything; single-page site.
+User-agent: *
+Allow: /
+
+# Add the sitemap line once the domain is live, e.g.
+# Sitemap: https://example.com/sitemap.xml
