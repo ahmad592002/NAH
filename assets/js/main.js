@@ -252,7 +252,7 @@
       stops.forEach(function (a, i) {
         a.querySelector('.lift__fl').textContent = label(i);
         a.querySelector('.lift__nm').textContent = nameOf(i);
-        a.setAttribute('aria-label', label(i) + ' — ' + nameOf(i));
+        a.setAttribute('aria-label', label(i) + ': ' + nameOf(i));
       });
       if (rail) rail.setAttribute('aria-label', isAr() ? 'الطوابق' : 'Floors');
     }
@@ -464,14 +464,14 @@
   function compose() {
     var f = form.elements;
     var L = [
-      'طلب عرض سعر — N.A.H',
+      'طلب عرض سعر من N.A.H',
       '',
       'الاسم: ' + f.name.value.trim(),
       'الهاتف: ' + f.phone.value.trim(),
       'المنطقة: ' + f.area.value.trim(),
       'نوع المبنى: ' + f.building.value,
-      'عدد الطوابق: ' + (f.floors.value || '—'),
-      'الحمولة: ' + (f.capacity.value.trim() || '—'),
+      'عدد الطوابق: ' + (f.floors.value || 'غير محدد'),
+      'الحمولة: ' + (f.capacity.value.trim() || 'غير محدد'),
       'نوع الاستخدام: ' + f.use.value,
       'البئر: ' + f.shaft.value
     ];
