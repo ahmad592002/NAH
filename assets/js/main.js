@@ -48,6 +48,9 @@
       if (txt != null) el.textContent = txt;
     });
 
+    document.querySelectorAll('[data-en-alt]').forEach(function (el) {
+      el.alt = el.getAttribute(isAr ? 'data-ar-alt' : 'data-en-alt');
+    });
     document.querySelectorAll('[data-en-ph]').forEach(function (el) {
       el.placeholder = el.getAttribute(isAr ? 'data-ar-ph' : 'data-en-ph');
     });

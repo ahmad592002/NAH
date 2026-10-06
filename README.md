@@ -56,3 +56,18 @@ markup. If you add a translated string, keep it in its own leaf element.
   message, with a mailto fallback kept in sync.
 - Brand colours, type scale and the navy/orange ratio are documented at the
   top of `styles.css`.
+
+## Photo credits
+
+The service-card photos (`assets/img/svc-*.jpg`) are free-licence images, resized for the web. The licences allow commercial use with attribution, which is shown in the page footer. Keep the credit line if you keep the photos.
+
+| File | Author | Source | Licence |
+|---|---|---|---|
+| svc-sales.jpg | Baron Maddock | https://commons.wikimedia.org/w/index.php?curid=114048157 | CC BY 4.0 |
+| svc-install.jpg | local louisville | https://www.flickr.com/photos/46409924@N03/4474431601 | CC BY 2.0 |
+| svc-maint.jpg | Killarnee | https://commons.wikimedia.org/w/index.php?curid=156183227 | CC BY-SA 4.0 |
+| svc-repair.jpg | zombieite | https://www.flickr.com/photos/78593866@N00/3937042847 | CC BY 2.0 |
+| svc-modern.jpg | jjes84 | https://www.flickr.com/photos/37779177@N03/54434001021 | CC BY 2.0 |
+| svc-parts.jpg | Simon Job | https://www.flickr.com/photos/56804078@N00/6636779789 | CC BY 2.0 |
+
+Icons: Tabler Icons (MIT) and Simple Icons (CC0). Replace these photos with N.A.H's own project photos when available.
