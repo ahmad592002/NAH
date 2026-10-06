@@ -59,7 +59,7 @@ markup. If you add a translated string, keep it in its own leaf element.
 
 ## Photo credits
 
-The service-card and elevator-type photos (`assets/img/svc-*.jpg`, `assets/img/type-*.jpg`) are free-licence images, resized for the web. The licences allow commercial use with attribution, which is shown in the page footer. Keep the credit line if you keep the photos.
+The service-card and elevator-type photos (`assets/img/svc-*.jpg`, `assets/img/type-*.jpg`) are free-licence images, resized for the web. The licences allow commercial use with attribution, which is on credits.html (linked from the footer as "حقوق الصور"). Keep that page and link while these photos are used.
 
 | File | Author | Source | Licence |
 |---|---|---|---|
