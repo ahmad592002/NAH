@@ -52,6 +52,7 @@
   --shadow-card: 0 24px 60px -20px rgba(6,24,43,.55);
 
   --nav-h: 86px;
+  --gutter: 26px;                 /* side space of every container: nav, sections, footer */
 }
 
 * { box-sizing: border-box; }
@@ -78,7 +79,7 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-.wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 26px; }
+.wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter); }
 
 /* keyboard users land here first and can jump past the nav */
 .skip {
@@ -90,6 +91,7 @@ img { max-width: 100%; display: block; }
 
 section { padding: 78px 0; position: relative; }
 .on-ice  { background: var(--ice-050); }
+.on-ice + .on-ice { padding-top: 0; }
 .on-navy { background: var(--navy-800); color: var(--steel-300); }
 .on-navy h2, .on-navy h3, .on-navy h4 { color: #fff; }
 .on-deep { background: var(--navy-900); color: var(--steel-300); }
@@ -103,7 +105,9 @@ section { padding: 78px 0; position: relative; }
   letter-spacing: .08em; color: var(--steel-500); margin-bottom: 12px;
 }
 .on-navy .kicker, .on-deep .kicker { color: var(--accent); }
-.sec-head h2 { font-size: clamp(26px, 3vw, 38px); }
+.sec-head h2 { font-size: clamp(26px, 3vw, 38px); text-wrap: balance; }
+.hero h1 { text-wrap: balance; }
+.fbot span { text-wrap: pretty; }
 .sec-head .rule { width: 56px; height: 3px; background: var(--navy-800); margin-top: 18px; }
 .on-navy .sec-head .rule, .on-deep .sec-head .rule { background: var(--accent); }
 .sec-head.center .rule { margin-inline: auto; }
@@ -145,6 +149,7 @@ section { padding: 78px 0; position: relative; }
 html[dir="rtl"] .brand__txt span { letter-spacing: 0; text-transform: none; font-size: 12px; }
 
 .navlinks { display: flex; gap: 28px; margin-inline-start: auto; }
+html[dir="ltr"] .navlinks { gap: 20px; }
 .navlinks a { font-size: 15px; font-weight: 500; color: var(--steel-300);
   padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
 .navlinks a:hover, .navlinks a.is-active { color: #fff; border-bottom-color: var(--accent); }
@@ -155,6 +160,7 @@ html[dir="rtl"] .brand__txt span { letter-spacing: 0; text-transform: none; font
   min-width: 42px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center;
   border: 0; background: none; color: var(--steel-300); cursor: pointer; transition: background .2s, color .2s; }
 .langtog button[aria-pressed="true"] { background: #fff; color: var(--navy-800); }
+.langtog button[data-lang="ar"] { font-family: 'IBM Plex Sans Arabic', sans-serif; font-size: 16px; }
 
 .burger { display: none; width: 44px; height: 44px; border: 1px solid var(--navy-600);
   background: none; cursor: pointer; padding: 0; border-radius: 3px; }
@@ -188,7 +194,8 @@ html[dir="rtl"] .brand__txt span { letter-spacing: 0; text-transform: none; font
   position: absolute; inset-inline-end: -60px; top: 50%; transform: translateY(-50%);
   width: 520px; height: 520px; opacity: .085; pointer-events: none; color: #fff;
 }
-.hero__in { position: relative; z-index: 2; padding: 86px 0 92px; max-width: 46rem; }
+.hero__in { position: relative; z-index: 2; padding-block: 86px 92px; }
+.hero__in > * { max-width: 46rem; }
 .hero__eyebrow {
   display: inline-flex; align-items: center; gap: 14px; margin-bottom: 22px;
   font-size: 13px; font-weight: 600; letter-spacing: .06em; color: #fff;
@@ -216,7 +223,7 @@ html[dir="rtl"] .hero__eyebrow { letter-spacing: 0; font-size: 15px; }
 .strip__i { padding: 42px 24px; text-align: center; border-inline-start: 1px solid var(--navy-600); }
 .strip__i:first-child { border-inline-start: 0; }
 .strip__i b { display: block; font-family: 'Archivo',sans-serif; font-size: 42px; font-weight: 700;
-  color: #fff; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  color: #fff; line-height: 1.05; font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
 .strip__i span { display: block; margin-top: 8px; font-size: 13px; color: var(--steel-300); }
 
 /* ═══════════ services — photo cards ═══════════ */
@@ -452,9 +459,9 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
   display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: 13.5px; }
 
 /* ═══════════ elevator floor indicator ═══════════
-   Side rail on desktop (≥1280px wide, ≥640px tall), compact display in the
-   nav bar below 1200px. 1200–1279px shows neither: the full nav fills the bar
-   there and the content edge is too close for the rail. */
+   Side rail on desktop (≥1360px wide, ≥640px tall); below 1200px the mobile
+   elevator scrollbar. 1200–1359px shows neither: the content edge is too close
+   to the screen edge for the rail. */
 .lift { display: none; }
 .lift__arrow { width: 10px; height: 8px; flex: none; color: var(--steel-400);
   transition: color .2s, transform .25s var(--ease); }
@@ -462,7 +469,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
 .is-up .lift__arrow { transform: rotate(180deg); }
 
 /* Geometry lives in custom properties so one set of markup scales:
-   compact on 1280–1359px laptops, full size from 1360px wide × 760px tall.
+   compact on short screens, full size from 1360px wide × 760px tall.
    Every moving part is driven by --pos (0 = top floor … --n-1 = ground). */
 .lift {
   --w: 42px; --step: 38px; --top: 32px;            /* hoistway width, floor height, machine room */
@@ -478,7 +485,7 @@ footer { background: var(--navy-900); color: var(--steel-300); padding: 62px 0 2
     --pill: 13.5px; --badge: 23px;
   }
 }
-@media (min-width: 1280px) and (min-height: 640px) {
+@media (min-width: 1360px) and (min-height: 640px) {
   .lift {
     display: flex; flex-direction: column; align-items: center; gap: 14px;
     position: fixed; z-index: 80; top: 50%; inset-inline-end: var(--inset); transform: translateY(-50%);
@@ -681,14 +688,10 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 
   .mlift {
     display: block; position: fixed; z-index: 85;
-    inset-inline-end: 0; width: 22px;
+    inset-inline-end: 0; width: 20px;
     top: calc(var(--nav-h) + 14px); bottom: 92px;        /* clear of the nav bar and the WhatsApp button */
     touch-action: none;                                  /* a drag here moves the cab, not the page */
   }
-}
-/* keep text clear of the elevator on its edge (nav sits above the shaft) */
-@media (max-width: 1199px) {
-  html main .wrap, html footer .wrap { padding-inline-end: 34px; }
 }
 .mlift { --ch: 36px; }                                   /* cab height */
 .mlift__btn {
@@ -716,12 +719,12 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 }
 .mlift.is-dragging .mlift__ticks span { opacity: 1; }
 .mlift__cab {                                             /* the cab = scroll thumb */
-  position: absolute; left: 50%; width: 16px; height: var(--ch); margin-left: -8px;
+  position: absolute; left: 50%; width: 14px; height: var(--ch); margin-left: -7px;
   overflow: hidden; border-radius: 4px; background: var(--accent);
   top: calc(var(--sp, 0) * (100% - var(--ch)));
   transition: width .15s var(--ease), margin .15s var(--ease);
 }
-.mlift.is-dragging .mlift__cab { width: 20px; margin-left: -10px; }
+.mlift.is-dragging .mlift__cab { width: 18px; margin-left: -9px; }
 .mlift__cab::before {                                     /* the car's opening, dark inside */
   content: ""; position: absolute; top: 7px; bottom: 3px; left: 3px; right: 3px;
   border-radius: 1px; background: var(--navy-900);
@@ -747,7 +750,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   background: var(--navy-900); color: #fff; font-size: 14px; font-weight: 600; line-height: 1;
   opacity: 0; transition: opacity .22s var(--ease);
 }
-.mlift.is-announce .mlift__toast, .mlift.is-dragging .mlift__toast { opacity: 1; }
+.mlift.is-dragging .mlift__toast { opacity: 1; }
 .mlift__fl {
   display: inline-grid; place-items: center; min-width: 24px; height: 24px; border-radius: 12px; padding: 0 5px;
   background: var(--accent); color: var(--navy-900);
@@ -783,9 +786,10 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
    Below 1200px it switches to the burger menu; before this it scrolled the
    page sideways in English and broke every link onto two lines in Arabic. */
 @media (max-width: 1199px) {
+  :root { --gutter: 28px; }    /* clears the 20px elevator scrollbar on the screen edge */
   .burger { display: block; }
   .navlinks { position: absolute; top: var(--nav-h); inset-inline: 0; flex-direction: column; gap: 0;
-    background: var(--navy-900); padding: 6px 26px 18px; display: none;
+    background: var(--navy-900); padding: 6px var(--gutter) 18px; display: none;
     max-height: calc(100vh - var(--nav-h)); overflow-y: auto; }
   .nav.is-open .navlinks { display: flex; }
   .navlinks a { padding: 14px 0; border-bottom: 1px solid var(--navy-600); }
@@ -793,6 +797,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 }
 @media (max-width: 780px) {
   section { padding: 58px 0; }
+  footer { padding-bottom: 92px; }
   .navcta .btn { display: none; }
   .frow { grid-template-columns: 1fr; gap: 0; }
   .faqs { grid-template-columns: 1fr; }
@@ -805,7 +810,6 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   .term { padding: 16px 6px; }
   .term b { font-size: 19px; }
   .term span { font-size: 12.5px; }
-  .wrap { padding: 0 18px; }
   .nav .brand__txt span { display: none; }
   .cards, .types, .cgrid, .fcols, .work { grid-template-columns: 1fr; }
   /* stats stay 2x2: one per row took ~640px to show four numbers */

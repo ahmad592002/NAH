@@ -48,6 +48,10 @@
       if (txt != null) el.textContent = txt;
     });
 
+    document.querySelectorAll('[data-en-ph]').forEach(function (el) {
+      el.placeholder = el.getAttribute(isAr ? 'data-ar-ph' : 'data-en-ph');
+    });
+
     langBtns.forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
     });
@@ -181,7 +185,6 @@
 
     var N = FLOORS.length;               // geometry (floor height, cab size) lives in styles.css
     var els = [rail, mlift].filter(Boolean);
-    var mTimer;
     var stops = [], toast = rail && rail.querySelector('.lift__toast');
     var tops = [], last = null, lastY = null, current = -1, idle, toastTimer, queued = false;
     var ticks = [], dragging = false, dragged = false, dragStartY = 0;
@@ -275,11 +278,6 @@
       if (mlift) {
         mlift.querySelector('.mlift__fl').textContent = label(f);
         mlift.querySelector('.mlift__nm').textContent = nameOf(f);
-        if (announce) {
-          mlift.classList.add('is-announce');
-          clearTimeout(mTimer);
-          mTimer = setTimeout(function () { mlift.classList.remove('is-announce'); }, 1500);
-        }
       }
     }
 
