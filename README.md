@@ -59,20 +59,20 @@ markup. If you add a translated string, keep it in its own leaf element.
 
 ## Photo credits
 
-The service-card and elevator-type photos (`assets/img/svc-*.jpg`, `assets/img/type-*.jpg`) are free-licence images, resized for the web. The licences allow commercial use with attribution, which is on credits.html (linked from the footer as "حقوق الصور"). Keep that page and link while these photos are used.
+The service-card and elevator-type photos (`assets/img/svc-*.webp`, `assets/img/type-*.webp`) are free-licence images, resized for the web. The licences allow commercial use with attribution, which is on credits.html (linked from the footer as "حقوق الصور"). Keep that page and link while these photos are used.
 
 | File | Author | Source | Licence |
 |---|---|---|---|
-| svc-sales.jpg | Baron Maddock | https://commons.wikimedia.org/w/index.php?curid=114048157 | CC BY 4.0 |
-| svc-install.jpg | local louisville | https://www.flickr.com/photos/46409924@N03/4474431601 | CC BY 2.0 |
-| svc-maint.jpg | Killarnee | https://commons.wikimedia.org/w/index.php?curid=156183227 | CC BY-SA 4.0 |
-| svc-repair.jpg | zombieite | https://www.flickr.com/photos/78593866@N00/3937042847 | CC BY 2.0 |
-| svc-modern.jpg | jjes84 | https://www.flickr.com/photos/37779177@N03/54434001021 | CC BY 2.0 |
-| svc-parts.jpg | Simon Job | https://www.flickr.com/photos/56804078@N00/6636779789 | CC BY 2.0 |
-| type-home.jpg, hero-lift.jpg | MantiFirero | https://commons.wikimedia.org/w/index.php?curid=164192412 | CC BY-SA 4.0 |
-| type-car.jpg | Spanish Coches | https://commons.wikimedia.org/w/index.php?curid=38116891 | CC BY 2.0 |
-| type-access.jpg | Tas1summer | https://commons.wikimedia.org/w/index.php?curid=92092884 | CC BY-SA 4.0 |
-| type-safety.jpg | Dieselducy, Andrew R | https://commons.wikimedia.org/w/index.php?curid=26535220 | CC BY-SA 3.0 |
+| svc-sales.webp | Baron Maddock | https://commons.wikimedia.org/w/index.php?curid=114048157 | CC BY 4.0 |
+| svc-install.webp | local louisville | https://www.flickr.com/photos/46409924@N03/4474431601 | CC BY 2.0 |
+| svc-maint.webp | Killarnee | https://commons.wikimedia.org/w/index.php?curid=156183227 | CC BY-SA 4.0 |
+| svc-repair.webp | zombieite | https://www.flickr.com/photos/78593866@N00/3937042847 | CC BY 2.0 |
+| svc-modern.webp | jjes84 | https://www.flickr.com/photos/37779177@N03/54434001021 | CC BY 2.0 |
+| svc-parts.webp | Simon Job | https://www.flickr.com/photos/56804078@N00/6636779789 | CC BY 2.0 |
+| type-home.webp, hero-lift.webp | MantiFirero | https://commons.wikimedia.org/w/index.php?curid=164192412 | CC BY-SA 4.0 |
+| type-car.webp | Spanish Coches | https://commons.wikimedia.org/w/index.php?curid=38116891 | CC BY 2.0 |
+| type-access.webp | Tas1summer | https://commons.wikimedia.org/w/index.php?curid=92092884 | CC BY-SA 4.0 |
+| type-safety.webp | Dieselducy, Andrew R | https://commons.wikimedia.org/w/index.php?curid=26535220 | CC BY-SA 3.0 |
 
 Product images (`assets/img/cat/`) are cropped from the BSB Asansör product catalogue (BSB-Asansor-Katalog.pdf), used with the client's confirmation as N.A.H's supplier. `products.html` is generated from that catalogue data.
 

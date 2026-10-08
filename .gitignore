@@ -1,0 +1,5 @@
+# Source material: kept locally, never published. The site uses the
+# optimised copies in assets/ (see README).
+*.pdf
+Video Project*.mp4
+WhatsApp Video*.mp4
