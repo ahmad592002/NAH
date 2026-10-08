@@ -48,6 +48,9 @@
       if (txt != null) el.textContent = txt;
     });
 
+    document.querySelectorAll('[data-en-label]').forEach(function (el) {
+      el.setAttribute('aria-label', el.getAttribute(isAr ? 'data-ar-label' : 'data-en-label'));
+    });
     document.querySelectorAll('[data-en-alt]').forEach(function (el) {
       el.alt = el.getAttribute(isAr ? 'data-ar-alt' : 'data-en-alt');
     });
@@ -432,6 +435,37 @@
     document.addEventListener('scroll', queue, { passive: true, capture: true });   // window or <body> scroller
     window.addEventListener('resize', queue);
     update();
+  })();
+
+  /* ── 5c. installation video ──────────────────────────── */
+  // The silent montage gets its src only when the section comes near the
+  // screen, plays only while visible, and never autoplays for reduced-motion
+  // users (they see the poster). The button swaps in the full film with sound.
+  (function () {
+    var v = document.getElementById('installVideo'), btn = document.getElementById('installPlay');
+    if (!v || !btn) return;
+    var fig = v.closest('.vid');
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var full = false;
+    if (!calm && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (full) return;
+          if (en.isIntersecting) {
+            if (!v.getAttribute('src')) v.src = v.getAttribute('data-loop');
+            var p = v.play(); if (p && p.catch) p.catch(function () { /* autoplay refused: poster stays */ });
+          } else { v.pause(); }
+        });
+      }, { threshold: 0.35 }).observe(v);
+    }
+    btn.addEventListener('click', function () {
+      full = true;
+      fig.classList.add('is-full');
+      v.loop = false; v.muted = false; v.controls = true; v.preload = 'auto';
+      v.src = v.getAttribute('data-full');
+      var p = v.play(); if (p && p.catch) p.catch(function () { /* user can press play on the controls */ });
+      v.focus();
+    });
   })();
 
   /* ── 6. active nav link ──────────────────────────────── */

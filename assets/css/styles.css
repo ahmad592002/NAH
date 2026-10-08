@@ -807,6 +807,41 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   font-family: "Archivo", sans-serif; font-size: 13px; font-weight: 700;
 }
 
+/* ═══════════ installation on video ═══════════ */
+.vid { margin: 0; max-width: 900px; }   /* fits one screen with its heading; edge stays on the content line */
+.vid__frame { position: relative; aspect-ratio: 16 / 9; background: var(--navy-800); border-radius: 4px; overflow: hidden; }
+.vid__el { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--navy-800); }
+.vid__play { position: absolute; inset-inline-start: 24px; bottom: 24px; display: flex; align-items: center; gap: 14px;
+  padding: 10px 22px 10px 10px; padding-inline: 10px 22px; border: 0; border-radius: 99px; cursor: pointer;
+  background: #fff; color: var(--ink); font: inherit; text-align: start; transition: transform .2s var(--ease); }
+.vid__play:hover { transform: translateY(-2px); }
+.vid__play:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.vid__icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: var(--ink); }
+.vid__icon svg { width: 20px; height: 20px; margin-left: 3px; }   /* play points right in every language */
+.vid__play b { display: block; font-size: 15.5px; line-height: 1.3; }
+.vid__play small { display: block; font-size: 13px; color: var(--mut); }
+.vid.is-full .vid__play { display: none; }
+.vid__steps { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: st; }
+.vid__steps li { counter-increment: st; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; padding-inline: 6px 14px;
+  border: 1px solid var(--navy-600); border-radius: 99px; color: #fff; font-size: 14px; }
+.vid__steps li::before { content: counter(st); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--navy-700); color: var(--accent); font-family: "Archivo", sans-serif; font-size: 12.5px; font-weight: 700; }
+.vid__cap { margin-top: 14px; font-size: 13px; color: var(--steel-400); }
+/* desktop: the steps run down beside the video, filling the container */
+@media (min-width: 1100px) {
+  .vid { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) 250px; column-gap: 36px; align-items: center; }
+  .vid__frame, .vid__cap { grid-column: 1; }
+  .vid__steps { grid-column: 2; grid-row: 1; flex-direction: column; margin: 0; gap: 12px; }
+  .vid__steps li { padding-block: 10px; font-size: 15.5px; border-radius: 4px; }
+  .vid__steps li::before { width: 30px; height: 30px; font-size: 14px; }
+}
+@media (max-width: 480px) {
+  .vid__play { inset-inline-start: 12px; bottom: 12px; gap: 10px; padding-inline: 6px 14px; padding-block: 6px; }
+  .vid__icon { width: 38px; height: 38px; }
+  .vid__play b { font-size: 14px; }
+  .vid__play small { display: none; }
+}
+
 /* ═══════════ products page (products.html) ═══════════
    Catalogue images sit on white tiles so their studio backgrounds blend in. */
 .types__more { margin-top: 30px; text-align: center; }

@@ -35,7 +35,7 @@
       integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<link rel="stylesheet" href="assets/css/styles.css?v=19" />
+<link rel="stylesheet" href="assets/css/styles.css?v=20" />
 
 <!-- Structured data. Every value below comes from the client's own
      questionnaire — nothing is invented. Add "sameAs" (social pages)
@@ -429,6 +429,45 @@
 </section>
 
 <!-- ══════════════════ COVERAGE + MAP ══════════════════ -->
+<!-- ══════════════════ INSTALLATION ON VIDEO ══════════════════
+     A silent 39-s montage loops while the section is on screen (src is set
+     only then, so it costs no data before). The button swaps in the full
+     10-minute video with sound. Source: Wittur's MRL W-Line assembly film. -->
+<section id="install-video" class="on-deep">
+  <div class="wrap">
+    <div class="sec-head rev">
+      <span class="kicker" data-en="Installation on video" data-ar="التركيب بالفيديو">التركيب بالفيديو</span>
+      <h2 data-en="See how a lift is installed, step by step" data-ar="شاهد كيف يُركَّب المصعد خطوة بخطوة">شاهد كيف يُركَّب المصعد خطوة بخطوة</h2>
+      <div class="rule"></div>
+      <p class="lede"
+         data-en="From fixing the guide rails in the shaft, to the machine and the car frame, to the landing doors and the final test to EN 81."
+         data-ar="من تثبيت سكك التوجيه داخل البئر، إلى الماكينة وهيكل الكابينة، وصولاً إلى أبواب الطوابق والاختبار النهائي وفق معيار EN 81.">
+        من تثبيت سكك التوجيه داخل البئر، إلى الماكينة وهيكل الكابينة، وصولاً إلى أبواب الطوابق والاختبار النهائي وفق معيار EN 81.</p>
+    </div>
+
+    <figure class="vid rev">
+      <div class="vid__frame">
+        <video class="vid__el" id="installVideo" muted loop playsinline preload="none" poster="assets/video/install-poster.jpg"
+               data-loop="assets/video/install-loop.mp4" data-full="assets/video/install-full.mp4"
+               aria-label="فيديو تركيب مصعد" data-ar-label="فيديو تركيب مصعد" data-en-label="Elevator installation video"></video>
+        <button class="vid__play" type="button" id="installPlay" hidden>
+          <span class="vid__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z"/></svg></span>
+          <span><b data-en="Watch the full video" data-ar="شاهد الفيديو كاملاً">شاهد الفيديو كاملاً</b><small data-en="10 minutes, with sound" data-ar="10 دقائق، مع الصوت">10 دقائق، مع الصوت</small></span>
+        </button>
+      </div>
+      <ol class="vid__steps">
+        <li data-en="Guide rails" data-ar="سكك التوجيه">سكك التوجيه</li>
+        <li data-en="Machine" data-ar="الماكينة">الماكينة</li>
+        <li data-en="Car frame" data-ar="هيكل الكابينة">هيكل الكابينة</li>
+        <li data-en="Landing doors" data-ar="أبواب الطوابق">أبواب الطوابق</li>
+        <li data-en="Test to EN 81" data-ar="الاختبار وفق EN 81">الاختبار وفق EN 81</li>
+      </ol>
+      <figcaption class="vid__cap" data-en="Animated assembly film of the Wittur MRL W-Line package, a machine-room-less lift."
+        data-ar="فيلم توضيحي من Wittur لتركيب مصعد MRL W-Line بدون غرفة ماكينة.">فيلم توضيحي من Wittur لتركيب مصعد MRL W-Line بدون غرفة ماكينة.</figcaption>
+    </figure>
+  </div>
+</section>
+
 <section id="coverage">
   <div class="wrap">
     <div class="sec-head rev">
@@ -784,7 +823,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
         integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-<script src="assets/js/main.js?v=19" defer></script>
+<script src="assets/js/main.js?v=20" defer></script>
 <!-- Icons: Tabler Icons (MIT, tabler.io/icons); WhatsApp logo: Simple Icons (CC0). -->
 </body>
 </html>
