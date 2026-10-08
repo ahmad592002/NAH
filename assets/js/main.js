@@ -438,7 +438,8 @@
   (function () {
     if (!('IntersectionObserver' in window)) return;
     var links = [].slice.call(navlinks.querySelectorAll('a'));
-    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    // only in-page links ('#id') are tracked; products.html links back to index.html#id
+    var targets = links.map(function (a) { var h = a.getAttribute('href'); return h.charAt(0) === '#' ? document.querySelector(h) : null; });
 
     var sio = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {

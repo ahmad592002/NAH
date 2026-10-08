@@ -69,13 +69,11 @@ The service-card and elevator-type photos (`assets/img/svc-*.jpg`, `assets/img/t
 | svc-repair.jpg | zombieite | https://www.flickr.com/photos/78593866@N00/3937042847 | CC BY 2.0 |
 | svc-modern.jpg | jjes84 | https://www.flickr.com/photos/37779177@N03/54434001021 | CC BY 2.0 |
 | svc-parts.jpg | Simon Job | https://www.flickr.com/photos/56804078@N00/6636779789 | CC BY 2.0 |
-| type-passenger.jpg | ricardodiaz11 | https://www.flickr.com/photos/41652235@N00/2311260401 | CC BY 2.0 |
 | type-home.jpg, hero-lift.jpg | MantiFirero | https://commons.wikimedia.org/w/index.php?curid=164192412 | CC BY-SA 4.0 |
-| type-freight.jpg | David Wheatley | https://commons.wikimedia.org/w/index.php?curid=136790587 | CC BY-SA 4.0 |
 | type-car.jpg | Spanish Coches | https://commons.wikimedia.org/w/index.php?curid=38116891 | CC BY 2.0 |
-| type-hospital.jpg | Dieselducy | https://commons.wikimedia.org/w/index.php?curid=26202673 | CC BY-SA 3.0 |
-| type-escalator.jpg | Stig Nygaard from Copenhagen, Denmark | https://commons.wikimedia.org/w/index.php?curid=3332204 | CC BY 2.0 |
 | type-access.jpg | Tas1summer | https://commons.wikimedia.org/w/index.php?curid=92092884 | CC BY-SA 4.0 |
 | type-safety.jpg | Dieselducy, Andrew R | https://commons.wikimedia.org/w/index.php?curid=26535220 | CC BY-SA 3.0 |
+
+Product images (`assets/img/cat/`) are cropped from the BSB Asansör product catalogue (BSB-Asansor-Katalog.pdf), used with the client's confirmation as N.A.H's supplier. `products.html` is generated from that catalogue data.
 
 Icons: Tabler Icons (MIT) and Simple Icons (CC0). Replace these photos with N.A.H's own project photos when available.
