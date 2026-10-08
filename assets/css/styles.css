@@ -842,6 +842,21 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
   .vid__play small { display: none; }
 }
 
+/* ═══════════ team ═══════════ */
+.team { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 56px; align-items: center; }
+.team__txt h2 { margin-top: 10px; font-size: clamp(26px, 3vw, 38px); text-wrap: balance; }
+.team__txt .rule { width: 56px; height: 3px; background: var(--navy-800); margin-top: 18px; }
+.team__txt p { margin-top: 20px; color: var(--body); }
+.team__vals { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+.team__vals li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink); font-weight: 500; }
+.team__vals svg { flex: none; width: 20px; height: 20px; margin-top: 4px; color: var(--accent); }
+.team__vid { margin: 0; }
+.team__vid video { display: block; width: 100%; height: auto; aspect-ratio: 400 / 288; background: var(--navy-900); border-radius: 4px; }
+.team__vid figcaption { margin-top: 10px; font-size: 13.5px; color: var(--mut); }
+@media (max-width: 900px) {
+  .team { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+}
+
 /* ═══════════ products page (products.html) ═══════════
    Catalogue images sit on white tiles so their studio backgrounds blend in. */
 .types__more { margin-top: 30px; text-align: center; }
