@@ -445,14 +445,20 @@
     var v = document.getElementById('installVideo'), btn = document.getElementById('installPlay');
     if (!v || !btn) return;
     var fig = v.closest('.vid');
-    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Skip the autoplay montage for reduced motion, data-saver and slow (2G/3G) connections:
+    // the poster shows instead and the full-video button still works.
+    var conn = navigator.connection || {};
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+               conn.saveData === true || /(^|-)(2g|3g)$/.test(conn.effectiveType || '');
+    // phones get the 360p montage (~0.3 MB), wider screens the 720p one
+    var loopSrc = v.getAttribute(window.innerWidth < 768 ? 'data-loop-sm' : 'data-loop') || v.getAttribute('data-loop');
     var full = false;
     if (!calm && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           if (full) return;
           if (en.isIntersecting) {
-            if (!v.getAttribute('src')) v.src = v.getAttribute('data-loop');
+            if (!v.getAttribute('src')) v.src = loopSrc;
             var p = v.play(); if (p && p.catch) p.catch(function () { /* autoplay refused: poster stays */ });
           } else { v.pause(); }
         });
@@ -461,7 +467,7 @@
     btn.addEventListener('click', function () {
       full = true;
       fig.classList.add('is-full');
-      v.loop = false; v.muted = false; v.controls = true; v.preload = 'auto';
+      v.loop = false; v.muted = false; v.controls = true; v.preload = 'metadata';   // stream as watched, little read-ahead
       v.src = v.getAttribute('data-full');
       var p = v.play(); if (p && p.catch) p.catch(function () { /* user can press play on the controls */ });
       v.focus();
