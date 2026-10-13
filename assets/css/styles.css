@@ -860,7 +860,7 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 /* ═══════════ products page (products.html) ═══════════
    Catalogue images sit on white tiles so their studio backgrounds blend in. */
 .types__more { margin-top: 30px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-.pr-dl { margin-top: 24px; }
+
 .pr-hero { padding: 64px 0 52px; }
 .pr-hero h1 { margin-top: 10px; max-width: 44rem; color: #fff; font-size: clamp(30px, 4vw, 48px); text-wrap: balance; }
 .pr-hero__sub { margin-top: 16px; max-width: 40rem; color: var(--steel-300); font-size: 17px; }
@@ -1028,4 +1028,31 @@ html[dir="rtl"] .lift__name, html[dir="rtl"] .lift__toast { --nudge: -8px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   .rev { opacity: 1; transform: none; }
+}
+
+/* ═══════════ catalogue download card ═══════════ */
+.catcard { margin-top: 34px; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 32px; align-items: center;
+  padding: 26px 30px; background: #fff; border-radius: 4px; border-inline-start: 5px solid var(--accent); color: var(--body); }
+.catcard__cover { position: relative; display: block; border-radius: 3px; overflow: hidden; box-shadow: 0 0 0 1px var(--ice-200); transition: transform .25s var(--ease); }
+.catcard__cover:hover { transform: translateY(-3px); }
+.catcard__cover img { display: block; width: 100%; height: auto; }
+.catcard__cover span { position: absolute; top: 8px; inset-inline-start: 8px; padding: 2px 8px; border-radius: 3px; background: var(--accent);
+  color: var(--ink); font-family: "Archivo", sans-serif; font-size: 12px; font-weight: 700; }
+.catcard__kick { color: var(--accent-ink); font-size: 14px; font-weight: 700; }
+.catcard h3 { margin-top: 4px; font-size: clamp(21px, 2.2vw, 27px); color: var(--ink); }
+.catcard p { margin-top: 8px; max-width: 40rem; font-size: 15.5px; color: var(--body); }
+.catcard__meta { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.catcard__meta li { display: flex; align-items: baseline; gap: 6px; font-size: 14px; color: var(--mut); }
+.catcard__meta b { font-family: "Archivo", sans-serif; font-size: 16px; color: var(--navy-800); }
+.catcard__btn { margin-top: 18px; min-height: 54px; padding: 0 30px; font-size: 16px; }
+.catcard--hero { margin-top: 30px; }
+@media (max-width: 640px) {
+  .catcard { grid-template-columns: 88px minmax(0, 1fr); gap: 16px 18px; padding: 20px 18px; align-items: start; }
+  .catcard__txt { display: contents; }
+  .catcard__kick, .catcard h3 { grid-column: 2; }
+  .catcard__cover { grid-row: span 2; }
+  .catcard p, .catcard__meta, .catcard__btn { grid-column: 1 / -1; }
+  .catcard p { margin-top: 0; font-size: 14.5px; }
+  .catcard__meta { margin-top: 0; }
+  .catcard__btn { margin-top: 0; width: 100%; justify-content: center; }
 }
